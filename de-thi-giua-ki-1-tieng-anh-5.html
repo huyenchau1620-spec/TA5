@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Đề thi giữa kì 1 Tiếng Anh 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: exam paper column; level switcher on top; sticky score/timer bar; parts as numbered sections like a printed test */
+:root{
+  --bg:#f4f6f9; --paper:#ffffff; --sunk:#eef1f5; --ink:#1c2533; --muted:#5d6878; --line:#d9dfe7;
+  --brand:#1f4e79; --brand-soft:#e3edf7;
+  --read:#23885a; --read-soft:#e1f3ea; --listen:#2563c9; --listen-soft:#e4edfb;
+  --speak:#d0601c; --speak-soft:#fcebdf; --write:#7c45c4; --write-soft:#efe6fa;
+  --ok:#1f8a4c; --ok-soft:#dff3e7; --bad:#c23b3b; --bad-soft:#fbe4e4; --warn:#a96a00;
+  --f-display:"Baloo 2","Be Vietnam Pro",system-ui,sans-serif;
+  --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12161d; --paper:#1a212b; --sunk:#151b23; --ink:#e7ecf2; --muted:#9ba7b6; --line:#2d3644;
+  --brand:#8cb8e6; --brand-soft:#1d2d40; --read:#6dcb9a; --read-soft:#173327; --listen:#7fa9f0; --listen-soft:#1c2a42;
+  --speak:#f19a5e; --speak-soft:#3a2617; --write:#bb92ef; --write-soft:#2c2140;
+  --ok:#6dcb9a; --ok-soft:#173327; --bad:#f08b8b; --bad-soft:#3b1c1c; --warn:#e8b45a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161d; --paper:#1a212b; --sunk:#151b23; --ink:#e7ecf2; --muted:#9ba7b6; --line:#2d3644;
+  --brand:#8cb8e6; --brand-soft:#1d2d40; --read:#6dcb9a; --read-soft:#173327; --listen:#7fa9f0; --listen-soft:#1c2a42;
+  --speak:#f19a5e; --speak-soft:#3a2617; --write:#bb92ef; --write-soft:#2c2140;
+  --ok:#6dcb9a; --ok-soft:#173327; --bad:#f08b8b; --bad-soft:#3b1c1c; --warn:#e8b45a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6}
+h1,h2,h3{font-family:var(--f-display);line-height:1.2;text-wrap:balance;margin:0}
+h1{font-size:1.9rem;font-weight:800} h2{font-size:1.25rem;font-weight:700} h3{font-size:1.02rem;font-weight:700}
+p{margin:0}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.wrap{max-width:920px;margin:0 auto;padding:20px 16px 80px;display:flex;flex-direction:column;gap:18px}
+.crumb{font-size:.8rem;color:var(--muted);letter-spacing:.04em}
+.hero{display:flex;flex-direction:column;gap:6px}
+.hero p{color:var(--muted);max-width:68ch}
+.levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.lv{border:1px solid var(--line);background:var(--paper);border-radius:var(--r);padding:12px 14px;text-align:left;display:flex;flex-direction:column;gap:2px;min-width:0;position:relative}
+.lv b{font-family:var(--f-display);font-size:1.15rem}
+.lv span{font-size:.82rem;color:var(--muted)}
+.lv .sc{font-weight:700;color:var(--ink)}
+.lv[data-c="read"] b{color:var(--read)} .lv[data-c="listen"] b{color:var(--listen)} .lv[data-c="speak"] b{color:var(--speak)} .lv[data-c="write"] b{color:var(--write)}
+.lv.on{border-width:2px;padding:11px 13px}
+.lv.on[data-c="read"]{border-color:var(--read);background:var(--read-soft)} .lv.on[data-c="listen"]{border-color:var(--listen);background:var(--listen-soft)}
+.lv.on[data-c="speak"]{border-color:var(--speak);background:var(--speak-soft)} .lv.on[data-c="write"]{border-color:var(--write);background:var(--write-soft)}
+.genrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.genrow .lbl{font-size:.85rem;color:var(--muted);margin-right:4px}
+.gchip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:4px 12px;font-size:.88rem;display:inline-flex;gap:6px;align-items:center}
+.gchip b{font-family:var(--f-display)}
+.gchip.on{border-color:var(--brand);background:var(--brand-soft);font-weight:600}
+.gchip .d{width:8px;height:8px;border-radius:50%;display:inline-block}
+.gchip .d.read{background:var(--read)}.gchip .d.listen{background:var(--listen)}.gchip .d.speak{background:var(--speak)}.gchip .d.write{background:var(--write)}
+.newbtn{border:1px dashed var(--brand);color:var(--brand);background:var(--paper);border-radius:999px;padding:4px 12px;font-size:.88rem;font-weight:600}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:8px 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.bar .grow{flex:1}
+.timer{font-family:var(--f-display);font-weight:700;font-size:1.15rem;font-variant-numeric:tabular-nums}
+.timer.low{color:var(--bad)}
+.prog{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.btn{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:6px 12px;font-size:.9rem;display:inline-flex;gap:6px;align-items:center}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:var(--paper);font-weight:600}
+.btn.l{border-color:var(--listen);color:var(--listen)}
+.btn svg{width:16px;height:16px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.paper{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:22px}
+.phead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;border-bottom:2px solid var(--ink);padding-bottom:12px}
+.phead .meta{font-size:.88rem;color:var(--muted)}
+.phead .who{display:flex;gap:16px;flex-wrap:wrap;font-size:.9rem}
+.phead .who label{display:flex;gap:6px;align-items:center}
+.phead .who input{border:none;border-bottom:1px dotted var(--muted);background:transparent;min-width:140px;padding:2px 4px}
+.part{display:flex;flex-direction:column;gap:12px}
+.part>.ph{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:6px}
+.part>.ph .en{color:var(--muted);font-size:.88rem;font-style:italic}
+.part>.ph .pts{margin-left:auto;font-size:.82rem;color:var(--muted)}
+.part>.ph .got{font-weight:700}
+.q{display:grid;grid-template-columns:2.4em minmax(0,1fr);gap:4px 6px;align-items:start}
+.q .n{font-family:var(--f-display);font-weight:700;color:var(--muted);text-align:right;padding-top:2px}
+.q .body{display:flex;flex-direction:column;gap:6px;min-width:0}
+.opts{display:flex;gap:6px;flex-wrap:wrap}
+.opt{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:5px 12px;font-size:.95rem;text-align:left;display:inline-flex;gap:6px;align-items:baseline;max-width:100%}
+.opt i{font-style:normal;font-weight:700;color:var(--muted)}
+.opt.sel{border-color:var(--brand);background:var(--brand-soft);font-weight:600}
+.opt.right{border-color:var(--ok);background:var(--ok-soft);color:var(--ok);font-weight:600}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft);color:var(--bad);text-decoration:line-through}
+.opts.col{flex-direction:column;align-items:flex-start}
+.ex{font-size:.86rem;color:var(--muted);border-left:3px solid var(--ok);padding-left:8px}
+.ex b{color:var(--ok)}
+.mark{font-weight:700} .mark.ok{color:var(--ok)} .mark.no{color:var(--bad)}
+.plays{font-size:.8rem;color:var(--muted)}
+.sw em{font-style:normal;color:var(--speak);font-weight:800;text-decoration:underline}
+/* errors */
+.es{font-size:1.05rem;line-height:2.4}
+.es .ep{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2;vertical-align:top;margin:0 1px}
+.es .ep u{text-underline-offset:4px}
+.es .ep small{font-weight:700;color:var(--muted);font-size:.72rem}
+/* dialogue */
+.dlg{border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.dlg h3{color:var(--brand)}
+.ln{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:8px;align-items:start}
+.ln .who{font-weight:600;color:var(--muted);font-size:.88rem;padding-top:2px}
+.blank{font-family:var(--f-display);font-weight:700;color:var(--brand)}
+/* cloze */
+.box{display:flex;flex-wrap:wrap;gap:6px;border:1px dashed var(--muted);border-radius:8px;padding:8px 10px}
+.box span{background:var(--sunk);border-radius:6px;padding:2px 8px;font-weight:600}
+.passage{font-size:1.02rem;line-height:2.1;background:var(--sunk);border-radius:var(--r);padding:14px 16px;white-space:pre-line}
+.passage select{border:1px solid var(--line);border-radius:6px;background:var(--paper);padding:1px 4px;font-size:.95rem;max-width:11em}
+.passage select.ok{border-color:var(--ok);background:var(--ok-soft)}
+.passage select.no{border-color:var(--bad);background:var(--bad-soft)}
+.passage .fix{color:var(--ok);font-weight:700;font-size:.9rem}
+.reading{font-size:1rem;line-height:1.85;background:var(--sunk);border-radius:var(--r);padding:14px 16px;white-space:pre-line;max-width:72ch}
+input.txt{width:100%;border:1px solid var(--line);border-radius:8px;padding:7px 10px;background:var(--paper)}
+input.txt.ok{border-color:var(--ok);background:var(--ok-soft)} input.txt.no{border-color:var(--bad);background:var(--bad-soft)}
+/* reorder */
+.line{min-height:42px;border:1px dashed var(--line);border-radius:8px;padding:6px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.line.ok{border-color:var(--ok);background:var(--ok-soft)} .line.no{border-color:var(--bad);background:var(--bad-soft)}
+.pool{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--write);color:var(--write);background:var(--paper);border-radius:8px;padding:3px 10px;font-size:.98rem}
+.line .chip{background:var(--write-soft)}
+/* result */
+.result{border:2px solid var(--ok);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:10px;background:var(--ok-soft)}
+.result .big{font-family:var(--f-display);font-weight:800;font-size:2.4rem;line-height:1;font-variant-numeric:tabular-nums}
+.rt{border-collapse:collapse;font-size:.9rem;width:100%}
+.rt td{border-bottom:1px solid var(--line);padding:4px 8px;font-variant-numeric:tabular-nums}
+.rt td:last-child{text-align:right;font-weight:600}
+.rt .barc{width:40%}
+.rt .mini{height:6px;background:var(--paper);border-radius:99px;overflow:hidden}
+.rt .mini i{display:block;height:100%;background:var(--ok)}
+.note{background:var(--sunk);border-radius:8px;padding:10px 12px;font-size:.88rem;color:var(--muted)}
+.note b{color:var(--ink)}
+.done .opt,.done .chip,.done select,.done input.txt{pointer-events:none}
+@media (max-width:560px){.paper{padding:16px}.phead{grid-template-columns:minmax(0,1fr)}.ln{grid-template-columns:minmax(0,1fr);gap:2px}h1{font-size:1.55rem}}
+@media print{
+  :root{--bg:#fff;--paper:#fff;--sunk:#fff;--ink:#000;--muted:#333;--line:#999}
+  .bar,.levels,.hero p,.noprint,.btn.l,.plays{display:none!important}
+  .paper{border:none;padding:0}
+  .opt{border:none;padding:0 10px 0 0}
+  .part{break-inside:auto} .q,.dlg{break-inside:avoid}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body style="margin:0">
+
+<div class="wrap">
+  <div class="hero"><div class="crumb">Tiếng Anh 5 Global Success · Giữa học kì 1 · Unit 1–5</div>
+    <h1>Bộ đề thi giữa kì 1</h1>
+    <p>Bốn đề theo bốn mức, mỗi đề 100 câu chia 8 phần, chấm thang 10 điểm. Không có câu nào trùng giữa các đề. Muốn làm thêm, bấm <b>Tạo đề mới</b> theo mức mong muốn: đề mới không lặp lại câu nào của các đề trước. Phần nghe dùng giọng đọc của máy, mỗi câu được nghe tối đa 2 lần.</p></div>
+  <div class="levels" id="levels"></div>
+  <div class="genrow" id="genrow"></div>
+  <div class="bar" id="bar"></div>
+  <div id="paper"></div>
+</div>
+
+<script>
+/* Quy ước: ở G (từ vựng ngữ pháp), D (hội thoại) và C (điền từ, dạng có phương án riêng), phương án ĐÚNG luôn viết đầu tiên; trang sẽ tự trộn thứ tự A–D (cố định theo đề). */
+const EXAMS=[
+{id:"de1",lv:"Dễ",tag:"Nhận biết",color:"read",desc:"Câu ngắn, từ quen thuộc của Unit 1–5. Hợp để làm quen cấu trúc đề.",
+L:[
+ {a:[["Mai","Hi, I'm Mai. I'm in Class 5B."]],q:"Mai is in Class ___.",o:["5A","5B","4B"],k:1},
+ {a:[["Tom","I live in the countryside with my grandparents."]],q:"Tom lives in ___.",o:["a city","the countryside","a town"],k:1},
+ {a:[["Linh","My favourite colour is green."]],q:"Linh's favourite colour is ___.",o:["blue","green","yellow"],k:1},
+ {a:[["Nam","What nationality is Akiko?"],["Lucy","She's Japanese."]],q:"Akiko is ___.",o:["Japanese","Thai","British"],k:0},
+ {a:[["Hoa","I live in a flat on the fifth floor."]],q:"Hoa lives in a ___.",o:["house","flat","village"],k:1},
+ {a:[["Peter","In my free time, I like playing the violin."]],q:"Peter likes playing ___.",o:["the guitar","the violin","football"],k:1},
+ {a:[["Mary","I'd like to be a singer in the future."]],q:"Mary would like to be a ___.",o:["singer","teacher","pilot"],k:0},
+ {a:[["Duc","My address is 15 Tran Phu Street."]],q:"Duc's address is ___ Tran Phu Street.",o:["50","15","5"],k:1},
+ {a:[["Anna","My friend Jim is very friendly."]],q:"Jim is ___.",o:["friendly","clever","active"],k:0},
+ {a:[["Minh","I always go for a walk after dinner."]],q:"Minh always ___ after dinner.",o:["watches TV","goes for a walk","reads books"],k:1}],
+S:["dol·phin|0 ten·nis|0 gi·raffe|1 col·our|0","teach·er|0 farm·er|0 pi·lot|0 be·hind|1","hel·lo|1 ci·ty|0 vil·lage|0 sub·ject|0","fif·teen|1 six·teen|1 thir·teen|1 thir·ty|0","ac·tive|0 friend·ly|0 clev·er|0 a·bout|1","al·ways|0 of·ten|0 to·night|1 nev·er|0","sing·er|0 wri·ter|0 en·joy|1 doc·tor|0","Ju·ly|1 Mon·day|0 Sun·day|0 Fri·day|0","good·bye|1 moth·er|0 fa·ther|0 sis·ter|0","Ja·pan|1 Eng·land|0 Lon·don|0 Thai·land|0","mu·sic|0 pen·cil|0 a·gain|1 ta·ble|0","for·ty|0 fif·ty|0 eigh·teen|1 six·ty|0","hap·py|0 fun·ny|0 help·ful|0 ar·rive|1","gar·den|0 kitch·en|0 tow·er|0 ad·dress|1","ap·ple|0 or·ange|0 be·cause|1 yel·low|0"],
+G:[
+ ["I ___ in Class 5A.",["am","is","are","be"],"I đi với am."],
+ ["She ___ a student at Kim Lien School.",["is","am","are","do"],"She đi với is."],
+ ["What's ___ name? – My name's Lan.",["your","you","he","she"],"Trước danh từ name dùng tính từ sở hữu your."],
+ ["Tom is my friend. ___ favourite sport is football.",["His","Her","He","She"],"Tom là nam, dùng His."],
+ ["I live ___ a small village.",["in","on","at","to"],"Làng, thành phố dùng in."],
+ ["Do you live in this house? – Yes, I ___.",["do","am","does","is"],"Câu hỏi Do you…? trả lời Yes, I do."],
+ ["What's your ___? – It's 20 Le Loi Street.",["address","class","name","job"],"Số nhà và tên đường là địa chỉ (address)."],
+ ["She is from Australia. She's ___.",["Australian","Australia","American","British"],"Quốc tịch của người Úc là Australian."],
+ ["What's he ___? – He's helpful.",["like","likes","look","from"],"What's he like? hỏi tính cách."],
+ ["I like ___ comic books.",["reading","read","reads","to reading"],"like + V-ing."],
+ ["What do you like doing in your ___ time?",["free","school","big","good"],"free time: thời gian rảnh."],
+ ["I'd like to be a ___. I'd like to grow flowers.",["gardener","pilot","writer","reporter"],"Người trồng hoa là gardener."],
+ ["My mother is ___ engineer.",["an","a","in","on"],"engineer bắt đầu bằng nguyên âm, dùng an."],
+ ["A ___ puts out fires.",["firefighter","farmer","singer","writer"],"Lính cứu hỏa dập lửa."],
+ ["What nationality ___ he? – He's Thai.",["is","are","am","do"],"he đi với is."],
+ ["My favourite ___ is pho.",["food","colour","sport","animal"],"Phở là món ăn (food)."],
+ ["We ___ in a big city.",["live","lives","living","is live"],"We đi với động từ nguyên mẫu live."],
+ ["Where ___ you live?",["do","does","are","is"],"Câu hỏi với you dùng do."],
+ ["I ___ ride my bike to school. I do it every day.",["always","never","once","twice"],"Ngày nào cũng làm: always."],
+ ["Why would you like to be a teacher? – ___ I'd like to teach children.",["Because","So","And","But"],"Trả lời câu hỏi Why bằng Because."]],
+D:[
+ {t:"A new friend",l:[["Nam","Hello! My name's Nam. What's your name?"],["Lucy",["My name's Lucy.","I'm fine, thanks.","I'm ten.","It's Lucy's."]],["Nam","Nice to meet you, Lucy. Where are you from?"],["Lucy",["I'm from Britain.","I'm British food.","I live in a flat.","It's in Class 5A."]],["Nam",["What class are you in?","How old is your house?","What's your sister like?","What colour is it?"]],["Lucy","I'm in Class 5C."],["Nam","Where do you live?"],["Lucy",["I live in Hoa Binh Tower.","I'm in Class 5C.","I like blue.","Yes, I do."]],["Nam","What's your favourite subject?"],["Lucy",["It's English.","It's blue.","It's my house.","I'm English."]]]},
+ {t:"Free time",l:[["Mai","What do you like doing in your free time, Tony?"],["Tony",["I like surfing the Internet.","I'd like to be a pilot.","I'm in Class 5A.","It's 30 Kim Ma Street."]],["Mai","How often do you surf the Internet?"],["Tony",["Twice a week.","At home.","With my brother.","It's fun."]],["Mai",["What do you do at the weekend?","Where do you live?","What's your dad like?","What nationality are you?"]],["Tony","I usually go for a walk with my dad."],["Mai","Does your sister like walking too?"],["Tony",["No, she doesn't. She likes playing the violin.","No, she isn't.","Yes, I am.","She's a nurse."]],["Mai","Can she play the violin well?"],["Tony",["Yes, she can. She plays every day.","Yes, she does a doctor.","No, she lives in a flat.","She's from Japan."]]]},
+ {t:"Future jobs",l:[["Ms Lan","Hai, what would you like to be in the future?"],["Hai",["I'd like to be a pilot.","I like flying kites.","I'm a pilot.","I live near the airport."]],["Ms Lan",["Why would you like to be a pilot?","What do you like doing?","Where is the airport?","What's your address?"]],["Hai","Because I'd like to fly planes."],["Ms Lan","What's your father's job?"],["Hai",["He's a doctor.","He's friendly.","He's from Viet Nam.","He's at home."]],["Ms Lan","Would you like to be a doctor too?"],["Hai",["No, I wouldn't. I'd like to fly planes.","No, I don't.","Yes, he is.","No, he isn't."]],["Ms Lan",["Good luck with your dream!","What's your name?","I'm fine, thank you.","Where are you from?"]],["Hai","Thank you, Ms Lan!"]]}],
+E:[
+ ["{I} {is} {in} {Class 5B}.",1,"am","I đi với am."],
+ ["{He live} {in} {a} {big city}.",0,"He lives","He đi với động từ thêm -s."],
+ ["{What's} {you} {favourite} {colour}?",1,"your","Trước danh từ dùng your."],
+ ["{She} {is} {from} {Japanese}.",3,"Japan","Sau from là tên nước."],
+ ["{I} {like} {play} {football}.",2,"playing","like + V-ing."],
+ ["{My} {father} {is} {a engineer}.",3,"an engineer","engineer bắt đầu bằng nguyên âm."],
+ ["{Mai} {likes} music. {His} favourite subject {is} music.",2,"Her","Mai là bạn nữ."],
+ ["{Where} {do} {you} {lives}?",3,"live","Sau do dùng động từ nguyên mẫu."],
+ ["{I'd} {like} {be} {a teacher}.",2,"to be","would like + to + động từ."],
+ ["{Does} {you} {live} {in a flat}?",0,"Do","Câu hỏi với you dùng Do."]],
+C:{t:"My name is Lily",box:true,
+ text:"Hello! My (1) is Lily. I'm ten years (2). I'm in Class 5A at Sunshine School. I live (3) a big flat in the city. My flat is (4) my school, so I walk there every day. My favourite (5) is English. I'm from Australia, so I'm (6). In my free time, I like (7) comic books. I (8) go swimming with my dad at the weekend. In the future, I'd like to be a (9) because I'd like to (10) children.",
+ ans:["name","old","in","near","subject","Australian","reading","often","teacher","teach"]},
+R:{t:"Hi, I'm Kenta",text:"Hi! I'm Kenta. I'm from Japan, so I'm Japanese. I'm eleven years old and I'm in Grade 5. I live with my family in a house in Osaka. Our house is near a big park. My address is 26 Sakura Street. My best friend is Yumi. She's very helpful and clever. In our free time, we often ride our bikes in the park. On Sundays, I sometimes play the piano. In the future, I'd like to be a reporter because I'd like to travel and report the news.",
+ q:[{q:"Kenta is Japanese.",tf:true},{q:"Kenta is ten years old.",tf:false},{q:"He lives in a flat.",tf:false},{q:"Yumi is helpful and clever.",tf:true},{q:"Kenta never plays the piano.",tf:false},
+ {q:"Kenta lives in ___.",o:["Osaka","Tokyo","Kyoto"]},{q:"His address is ___ Sakura Street.",o:["26","62","16"]},{q:"Their house is near ___.",o:["a park","a school","a market"]},{q:"In their free time, Kenta and Yumi often ___.",o:["ride their bikes","play football","go shopping"]},{q:"Kenta would like to be a ___.",o:["reporter","pilot","writer"]}]},
+O:["I live in a small village.","What's your favourite colour?","She is from Malaysia.","My best friend is very clever.","Do you live in this flat?","I like watering the flowers.","He often goes for a walk.","I'd like to be a doctor.","What's his address?","My father is a firefighter."]},
+
+{id:"de2",lv:"Vừa",tag:"Thông hiểu",color:"listen",desc:"Hội thoại hai lượt, cần nghe và đọc kĩ hơn. Mức của bài kiểm tra trên lớp.",
+L:[
+ {a:[["Ben","Where do you live, Hoa?"],["Hoa","I live in a tower in the city. It's called Sun Tower."]],q:"Hoa lives in ___.",o:["a house in the city","Sun Tower","a village"],k:1},
+ {a:[["Lucy","What's your address, Phong?"],["Phong","It's 116 Hoa Binh Street."]],q:"Phong's address is ___ Hoa Binh Street.",o:["116","160","106"],k:0},
+ {a:[["Nam","What nationality is your friend Ali?"],["Mai","He's Malaysian. He's from Kuala Lumpur."]],q:"Ali is ___.",o:["Malaysian","Singaporean","Thai"],k:0},
+ {a:[["Tom","What's your sister like, Linh?"],["Linh","She's active. She plays sports every day."]],q:"Linh's sister is ___.",o:["active","clever","quiet"],k:0},
+ {a:[["Anna","What do you do at the weekend, Quan?"],["Quan","I usually go shopping with my mum. Sometimes I play chess with my dad."]],q:"Quan usually ___ at the weekend.",o:["plays chess","goes shopping","goes camping"],k:1},
+ {a:[["Mike","How often do you play the violin, Lan?"],["Lan","Three times a week."]],q:"Lan plays the violin ___.",o:["once a week","twice a week","three times a week"],k:2},
+ {a:[["Mr Long","What would you like to be in the future, Vy?"],["Vy","I'd like to be a writer. I'd like to write stories for children."]],q:"Vy would like to ___.",o:["write stories","teach children","grow flowers"],k:0},
+ {a:[["Peter","Is your mother a teacher, Ha?"],["Ha","No, she isn't. She's a nurse. My aunt is a teacher."]],q:"Ha's mother is a ___.",o:["teacher","nurse","doctor"],k:1},
+ {a:[["Sue","Do you live near the school, Bao?"],["Bao","No, I don't. I live far from it. I go to school by bus."]],q:"Bao lives ___ the school.",o:["near","far from","next to"],k:1},
+ {a:[["Kate","What's your favourite food, Tuan?"],["Tuan","I like noodles, but my favourite food is fried chicken."]],q:"Tuan's favourite food is ___.",o:["noodles","fried chicken","fried rice"],k:1}],
+S:["par·rot|0 mon·key|0 ti·ger|0 bal·loon|1","re·peat|1 for·get|1 be·gin|1 pic·nic|0","gar·den·er|0 fam·i·ly|0 hol·i·day|0 com·pu·ter|1","Jap·a·nese|2 Viet·nam·ese|2 en·gi·neer|2 an·i·mal|0","home·work|0 birth·day|0 class·room|0 to·day|1","car·toon|1 gui·tar|1 po·lice|1 noo·dles|0","Chi·nese|1 ho·tel|1 a·way|1 Brit·ish|0","sev·en·ty|0 el·e·phant|0 fa·vour·ite|0 ba·na·na|1","foot·ball|0 sand·wich|0 chick·en|0 a·round|1","re·port·er|1 to·mor·row|1 um·brel·la|1 won·der·ful|0","pret·ty|0 la·zy|0 po·lite|1 spor·ty|0","sev·en·teen|2 af·ter·noon|2 kan·ga·roo|2 cin·e·ma|0","num·ber|0 pur·ple|0 mis·take|1 pa·per|0","in·vite|1 ex·plain|1 com·plete|1 cof·fee|0","Sat·ur·day|0 yes·ter·day|0 bad·min·ton|0 pa·go·da|1"],
+G:[
+ ["My brother ___ in a flat near the school.",["lives","live","living","is live"],"My brother = he, động từ thêm -s."],
+ ["___ your friend live in this tower? – Yes, she does.",["Does","Do","Is","Are"],"your friend = she, câu hỏi dùng Does."],
+ ["Lucy ___ live in a house. She lives in a flat.",["doesn't","don't","isn't","not"],"Phủ định với she: doesn't + động từ."],
+ ["They live ___ 45 Ba Trieu Street.",["at","on","in","to"],"Địa chỉ có số nhà dùng at."],
+ ["My flat is ___ the tenth floor.",["on","in","at","to"],"Tầng nhà dùng on."],
+ ["He lives ___ Le Duan Street.",["on","at","in","to"],"Tên đường không có số nhà dùng on."],
+ ["Where's she from? – She's from ___.",["Singapore","Singaporean","Thai","American"],"Sau from là tên nước."],
+ ["Ken and Yumi are from Japan. ___ house is in Tokyo.",["Their","They","Our","His"],"Của họ: their."],
+ ["What does your brother like? – ___",["He likes playing chess.","He's clever.","He's from Hue.","He's a doctor."],"What does he like? hỏi sở thích, khác What's he like?"],
+ ["She likes ___ the Internet.",["surfing","surf","surfs","to surfing"],"like + V-ing."],
+ ["He likes ___ in the river.",["swimming","swiming","swim","swims"],"swim → swimming (nhân đôi m)."],
+ ["I ___ go camping. I only go once a year.",["sometimes","always","usually","every"],"Một năm một lần: thỉnh thoảng."],
+ ["How ___ do you go for a walk? – Every evening.",["often","many","much","long"],"Hỏi tần suất: How often."],
+ ["Choose the correct sentence.",["She is always busy at the weekend.","She always is busy at the weekend.","Always she is busy at the weekend.","She is busy always at the weekend."],"Trạng từ tần suất đứng sau to be."],
+ ["What would you like to ___ in the future?",["be","is","are","being"],"would like to + động từ nguyên mẫu."],
+ ["Why would she like to be a reporter? – Because she'd like ___ the news.",["to report","report","reporting","reports"],"would like + to + động từ."],
+ ["A ___ writes stories and books.",["writer","reporter","gardener","firefighter"],"Nhà văn viết truyện."],
+ ["My uncle is ___ artist. He paints pictures.",["an","a","the","two"],"artist bắt đầu bằng nguyên âm."],
+ ["We ___ watch cartoons on Sunday mornings.",["usually","usual","use","usualy"],"Trạng từ đúng chính tả: usually."],
+ ["___ is your favourite subject? – It's maths.",["What","Where","Who","How"],"Hỏi môn học: What."]],
+D:[
+ {t:"At the new flat",l:[["Peter","Hi, Mai. Do you live in this building?"],["Mai",["Yes, I do. I live on the eighth floor.","Yes, I am. I'm on the eighth floor.","Yes, it does.","No, I'm not."]],["Peter","What's your address?"],["Mai",["It's Flat 8B, Green Tower, 22 Kim Ma Street.","It's on the left.","I live in Viet Nam.","It's my flat."]],["Peter",["Is it near our school?","Do you like it?","What's it like?","Where is your school?"]],["Mai","Yes, it is. It's only five minutes on foot. Where do you live, Peter?"],["Peter",["I live in a house in Ba Vi, near my grandparents.","I'm from the countryside.","Yes, I live.","I like my house."]],["Mai",["What's it like there?","How often do you go there?","What's your address?","Who do you live with?"]],["Peter","It's quiet and beautiful."]]},
+ {t:"Pen friends",l:[["Lan","Who's that boy in the photo, Sam?"],["Sam",["That's my pen friend, Kai.","That's my photo.","He's in the photo.","He's twelve years."]],["Lan","What nationality is he?"],["Sam",["He's Singaporean. He lives in Singapore.","He's from Singaporean.","He's Singapore.","He lives Singapore."]],["Lan",["What's he like?","What does he like?","What does he look like?","How is he?"]],["Sam","He's funny and very kind."],["Lan","What does he like doing in his free time?"],["Sam",["He likes playing football and reading comic books.","He's like football.","He likes play football.","He'd like to be a footballer."]],["Lan",["How often do you write to him?","When is his birthday?","Where does he live?","What do you write?"]],["Sam","Every week. We send emails on Saturdays."]]},
+ {t:"A survey about jobs",l:[["Tom","Hien, can I ask you some questions about jobs?"],["Hien",["Sure. Go ahead.","Yes, I can't.","No problem, I'm fine.","Thank you."]],["Tom","What's your mother's job?"],["Hien",["She's a dentist. She works in Hai Phong.","She's at work now.","She'd like to be a dentist.","She likes her job."]],["Tom",["And what would you like to be in the future?","What do you like doing?","What's your father like?","Where do you work?"]],["Hien","I'd like to be a gardener."],["Tom","Why would you like to be a gardener?"],["Hien",["Because I'd like to grow flowers and trees.","Because I'm a gardener.","Because she grows flowers.","Because to grow flowers."]],["Tom","Do you have a garden at home?"],["Hien",["Yes, I do. I water the flowers every day.","Yes, I am. I water them.","Yes, I have.","Yes, it does."]]]}],
+E:[
+ ["{Don't} {your sister} {live} {in} this tower?",0,"Doesn't","your sister = she, dùng Doesn't."],
+ ["{Does} {he} {lives} {near} the school?",2,"live","Sau does dùng động từ nguyên mẫu."],
+ ["{I} {live} {in} {32 Nguyen Trai Street}.",2,"at","Địa chỉ có số nhà dùng at."],
+ ["{They} {are} {from} {Thai}.",3,"Thailand","Sau from là tên nước: Thailand."],
+ ["{What's} she {like}? – She {is} {kindly}.",3,"kind","Sau to be dùng tính từ kind."],
+ ["{She} {likes} {rideing} {her bike}.",2,"riding","ride bỏ e rồi thêm -ing."],
+ ["{He} {goes} {often} {to the park}.",2,"often goes","Trạng từ tần suất đứng trước động từ thường: He often goes."],
+ ["{Two times} {a week}, {I} {play} badminton.",0,"Twice","Hai lần dùng twice."],
+ ["{She'd} {likes} {to be} {a nurse}.",1,"like","Sau would dùng like, không thêm -s."],
+ ["{Why} {would} you like to be a farmer? – {So} I'd like to {grow} rice.",2,"Because","Trả lời câu hỏi Why bằng Because."]],
+C:{t:"My best friend Akiko",box:true,
+ text:"My best friend is Akiko. She (1) from Japan, so she is Japanese. Now she (2) in Ha Noi with her family. Their flat is (3) the twelfth floor of Lotus Tower. (4) address is 18 Lieu Giai Street. Akiko is very (5). She always helps her classmates with maths. In her free time, she likes (6) the violin. She (7) goes to the music club after school, about twice a week. At the weekend, she sometimes goes (8) with her parents in the mountains. In the future, she'd like to be (9) engineer because she'd like (10) bridges.",
+ ans:["is","lives","on","Their","helpful","playing","often","camping","an","to build"]},
+R:{t:"An email from Jack",text:"Dear Phuong,\nThank you for your email. Let me tell you about myself and my family. I'm Jack and I'm in Class 5B at Oak Primary School. I'm British. I live in a small town near London with my parents and my little sister, Emma. Our house is on Green Road. It's not far from my school, so I ride my bike there every morning.\nMy dad is a reporter. He reports the news on TV. My mum is a teacher at a primary school. Emma is only six, but she's very active. She loves dancing.\nIn my free time, I usually play computer games or read comic books. On Saturdays, I always play football with my friends. In the future, I'd like to be a firefighter because I'd like to help people.\nWhat about you? Please write soon.\nBest wishes,\nJack",
+ q:[{q:"Jack is in ___.",o:["Class 5B","Class 5A","Class 4B"]},{q:"Jack is ___.",o:["British","American","Australian"]},{q:"Jack lives in ___.",o:["a small town","a big city","a village"]},{q:"Jack goes to school ___.",o:["by bike","by bus","by car"]},{q:"Jack's dad is a ___.",o:["reporter","teacher","firefighter"]},{q:"Who is a teacher?",o:["Jack's mum","Jack's dad","Emma"]},{q:"Emma is ___.",o:["six years old","ten years old","sixteen years old"]},{q:"What does Emma love doing?",o:["dancing","reading","singing"]},{q:"What does Jack always do on Saturdays?",o:["He plays football.","He reads comic books.","He plays computer games."]},{q:"Why would Jack like to be a firefighter?",o:["Because he'd like to help people.","Because his dad is a firefighter.","Because he likes fires."]}]},
+O:["My grandparents live in a house in the countryside.","What does your sister like doing in her free time?","They always go camping in the summer.","Why would you like to be a reporter?","He lives on the third floor of this building.","What nationality is your new friend?","My mother is a nurse at a big hospital.","She sometimes plays the violin after school.","Because I'd like to grow flowers.","Do you often surf the Internet at the weekend?"]},
+
+{id:"de3",lv:"Khó",tag:"Vận dụng",color:"speak",desc:"Có thông tin gây nhiễu, số dễ nhầm, câu hỏi suy luận và câu trả lời tự viết.",
+L:[
+ {a:[["Tom","Do you live in Sun Tower, Mai?"],["Mai","No, I don't. I live in Moon Tower. My cousin lives in Sun Tower."]],q:"Mai lives in ___.",o:["Sun Tower","Moon Tower","Star Tower"],k:1},
+ {a:[["Ann","What's your address, Khoa?"],["Khoa","It's 70 Le Lai Street."],["Ann","Seventeen?"],["Khoa","No, seventy. Seven, zero."]],q:"Khoa's address is ___ Le Lai Street.",o:["17","70","07"],k:1},
+ {a:[["Bill","Is your friend Hana Japanese?"],["Nga","No, she isn't. Her father is Japanese, but she's from Australia. She's Australian."]],q:"Hana is ___.",o:["Japanese","Australian","American"],k:1},
+ {a:[["Kim","What's your brother like, Long?"],["Long","He's clever. He's good at maths. But he isn't very active. He doesn't like sports."]],q:"Which is TRUE about Long's brother?",o:["He's active.","He's clever.","He likes sports."],k:1},
+ {a:[["Jane","How often do you go swimming, Dat?"],["Dat","I go swimming twice a week, on Tuesdays and Fridays. And I play badminton once a week."]],q:"How often does Dat go swimming?",o:["once a week","twice a week","three times a week"],k:1},
+ {a:[["Sara","What do you do at the weekend, Thu?"],["Thu","On Saturdays, I usually water the flowers with my grandma. On Sundays, I often go for a walk with my dad."]],q:"What does Thu often do on Sundays?",o:["She waters the flowers.","She goes for a walk.","She goes shopping."],k:1},
+ {a:[["Mr Hung","What would you like to be, Lan?"],["Lan","My mum wants me to be a doctor, but I'd like to be a writer."]],q:"Lan would like to be a ___.",o:["doctor","writer","teacher"],k:1},
+ {a:[["Tim","Why would you like to be a firefighter, Minh?"],["Minh","Because I'd like to help people. I'd like to put out fires and save animals too."]],q:"Why would Minh like to be a firefighter?",o:["Because he'd like to help people.","Because his father is a firefighter.","Because he likes red trucks."],k:0},
+ {a:[["Lucy","Does your father work in a hospital, Hai?"],["Hai","No. My uncle is a doctor in a hospital. My father is a gardener. He works in a big park."]],q:"Where does Hai's father work?",o:["in a hospital","in a park","in a school"],k:1},
+ {a:[["Ben","What's your favourite sport, Vy?"],["Vy","I like tennis and swimming. But badminton is my favourite. I play it with my sister."]],q:"Vy's favourite sport is ___.",o:["tennis","swimming","badminton"],k:2}],
+S:["en·gi·neer|2 vol·un·teer|2 Por·tu·guese|2 re·mem·ber|1","A·mer·i·can|1 Aus·tra·li·an|1 ge·og·ra·phy|1 in·ter·est·ing|0","fire·fight·er|0 news·pa·per|0 grand·moth·er|0 De·cem·ber|1","Sep·tem·ber|1 Oc·to·ber|1 No·vem·ber|1 ham·bur·ger|0","pi·a·no|1 to·ma·to|1 po·ta·to|1 cam·er·a|0","help·ful|0 care·ful|0 use·ful|0 de·cide|1","sing·ing|0 danc·ing|0 cook·ing|0 a·gree|1","re·turn|1 de·scribe|1 re·ply|1 sci·ence|0","ex·cit·ing|1 im·por·tant|1 to·geth·er|1 beau·ti·ful|0","u·ni·form|0 sta·di·um|0 the·a·tre|0 mu·se·um|1","Chi·na|0 Brit·ain|0 Thai·land|0 Bra·zil|1","cal·cu·la·tor|0 hel·i·cop·ter|0 wa·ter·mel·on|0 ac·tiv·i·ty|1","mu·si·cian|1 li·brar·y|0 his·to·ry|0 fac·to·ry|0","Viet·nam·ese|2 in·tro·duce|2 un·der·stand|2 di·no·saur|0","be·low|1 be·tween|1 be·side|1 un·der|0"],
+G:[
+ ["My cousins ___ in a village. They don't like the city.",["live","lives","living","are live"],"My cousins là số nhiều, động từ nguyên mẫu."],
+ ["___ your best friend live near you? – No, he ___.",["Does / doesn't","Do / don't","Is / isn't","Does / don't"],"your best friend = he: Does… / doesn't."],
+ ["Where ___ your grandparents live?",["do","does","are","is"],"your grandparents là số nhiều: do."],
+ ["She lives ___ the second floor ___ Sun Tower.",["on / of","in / of","at / in","on / at"],"on the second floor of + tên tòa nhà."],
+ ["I'd like to visit Mrs Kim. What's ___ address?",["her","she","hers","his"],"Mrs Kim là nữ, trước danh từ dùng her."],
+ ["People from Singapore are ___.",["Singaporean","Singapore","Singaporese","Singaporian"],"Quốc tịch: Singaporean."],
+ ["What's your teacher like? – ___",["She's kind and helpful.","She likes reading.","She's a teacher.","She's fine, thanks."],"What's … like? hỏi tính cách."],
+ ["My brother enjoys ___ the Internet in the evening.",["surfing","to surf","surf","surfs"],"enjoy + V-ing."],
+ ["I don't like ___ shopping. It's boring.",["going","go","goes","to going"],"like + V-ing."],
+ ["How often does she play the violin? – ___",["Twice a week.","At the weekend.","In her room.","She plays well."],"How often hỏi tần suất, trả lời số lần."],
+ ["Ben ___ goes swimming. He doesn't like water.",["never","always","usually","often"],"Không thích nước nên không bao giờ đi bơi."],
+ ["Choose the correct sentence.",["He is never late for school.","He never is late for school.","He is late never for school.","Never he is late for school."],"Trạng từ tần suất đứng sau to be."],
+ ["I'd like to be ___ artist. I love drawing.",["an","a","the","two"],"artist bắt đầu bằng nguyên âm."],
+ ["My father is a reporter. He ___ the news every day.",["reports","report","reporting","to report"],"He + động từ thêm -s."],
+ ["Why ___ he like to be a pilot?",["would","does","is","do"],"Hỏi lý do ước mơ: Why would … like to be …?"],
+ ["Because he'd like ___ around the world.",["to travel","travel","travelling","travels"],"would like + to + động từ."],
+ ["Choose the correct sentence.",["I'd like to be a gardener because I like flowers.","I'd like be a gardener because I like flowers.","I'd like to being a gardener.","I'd likes to be a gardener."],"would like to + động từ nguyên mẫu."],
+ ["That girl is from Thailand. ___",["She's Thai.","She's Thailand.","She's Thailish.","She from Thai."],"Quốc tịch: Thai."],
+ ["'Do you live in the city?' – 'No, ___. I live in the countryside.'",["I don't","I'm not","I doesn't","I live"],"Câu hỏi Do you…? trả lời No, I don't."],
+ ["Lan and I ___ in Class 5C. ___ teacher is Ms Hoa.",["are / Our","is / Our","are / We","am / My"],"Lan and I = we: are, our."]],
+D:[
+ {t:"Meeting a new student",l:[["Nam","Hi! Are you the new student in Class 5A?"],["Lily",["Yes, I am. My name's Lily.","Yes, I do. I'm Lily.","Yes, it is. Lily.","No, I'm in Class 5A."]],["Nam",["Where are you from, Lily?","What nationality is America?","Where do you live, Lily?","What's America like?"]],["Lily","I'm from America. I'm American."],["Nam","Welcome to our school! Where do you live now?"],["Lily",["I live in a flat on Hai Ba Trung Street.","I'm living Hai Ba Trung Street.","I live at Hai Ba Trung Street.","It's on Hai Ba Trung Street flat."]],["Nam",["Is it near here?","Do you live near here?","Is it far from here?","Does it near here?"]],["Lily","Yes, it is. I can walk to school. What do you like doing after school, Nam?"],["Nam",["I usually play football with my friends.","I'd like to be a footballer.","I usually football with my friends.","I'm usually playing football friends."]]]},
+ {t:"Hobbies",l:[["Grace","Minh, what do you like doing in your free time?"],["Minh",["I like collecting stamps. I have about two hundred.","I'd like to collect stamps.","I like collect stamps.","Yes, I like."]],["Grace",["When do you usually do it?","How often do you do it?","Where do you do it?","Why do you like it?"]],["Minh","I usually do it on Sunday evenings. What about you?"],["Grace",["I love going for a walk with my dog.","I love go for a walk with my dog.","I loves walking my dog.","I'd love to be a dog."]],["Minh",["How often do you walk your dog?","When is your dog's birthday?","What's your dog like?","Where is your dog?"]],["Grace","Every morning, before school. My dog is very active!"],["Minh",["Is he friendly?","Does he friendly?","What's he like?","Are you friendly?"]],["Grace","Yes, he is. He loves children."]]},
+ {t:"Career day",l:[["Mr Brown","Today we're talking about future jobs. Hoa, what would you like to be?"],["Hoa",["I'd like to be a farmer. I love animals.","I like being a farmer.","I'd like to a farmer.","I'm a farmer. I love animals."]],["Mr Brown",["Why would you like to be a farmer?","What do farmers do?","Where would you like to work?","Do you like cows?"]],["Hoa","Because I'd like to grow vegetables and keep cows."],["Mr Brown","Great. And you, Quang?"],["Quang",["I'm not sure. Maybe a reporter or a writer.","I not sure. Maybe reporter.","Yes, I'd like.","I'd like a reporter."]],["Mr Brown",["Why do you like those jobs?","What does a reporter do?","When do you write?","Who is your favourite writer?"]],["Quang","Because I love writing and meeting people. My aunt is a reporter, too."],["Mr Brown",["What does she do every day?","Where does she live?","What's she like?","How old is she?"]],["Quang","She reports the news for a TV channel."]]}],
+E:[
+ ["{Doesn't} {your parents} {live} {in} the city?",0,"Don't","your parents là số nhiều: Don't."],
+ ["{Where} {does} {your uncle} {lives}?",3,"live","Sau does dùng động từ nguyên mẫu."],
+ ["{She} {lives} {at} {Hang Bai Street}.",2,"on","Tên đường không có số nhà dùng on."],
+ ["{My friend} {is} {from} {Malaysian}.",3,"Malaysia","Sau from là tên nước."],
+ ["{What} {does} he {like}? – He {is} friendly.",1,"is (What is he like?)","Câu trả lời nói tính cách, nên câu hỏi phải là What's he like?"],
+ ["{He} {usually is} {busy} {at} the weekend.",1,"is usually","Trạng từ tần suất đứng sau to be."],
+ ["{We} {go} camping {two times} {a month}.",2,"twice","Hai lần dùng twice."],
+ ["{I'd} {like} {to be} {a engineer}.",3,"an engineer","engineer bắt đầu bằng nguyên âm."],
+ ["{Why} would he like {to be} a pilot? – {Because} he'd like {fly} planes.",3,"to fly","would like + to + động từ."],
+ ["{Is} {Lan and Mai} {your} {classmates}?",0,"Are","Lan and Mai là số nhiều: Are."]],
+C:{t:"Lucas from Australia",box:true,extra:["Australia","play"],
+ text:"Lucas is my new classmate. He comes (1) Australia, so he is (2). His family moved to Viet Nam last year. Now they live (3) a flat in a tall building in Da Nang. Their flat is on the (4) floor, so Lucas can see the sea from his window. Lucas is very (5). He plays sports every day. He (6) goes swimming after school, about four times a week. He also enjoys (7) the guitar. At the weekend, he and his dad (8) go fishing, but not every week. Lucas would like to be a (9) in the future because he'd like to (10) sick people.",
+ ans:["from","Australian","in","ninth","active","often","playing","sometimes","doctor","help"]},
+R:{t:"A day in the life of a gardener",text:"My name is Hung. I'm a gardener at Thong Nhat Park in Ha Noi. I live in a small house on Tran Nhan Tong Street, so I walk to work every morning. I start work at six o'clock. First, I water the flowers and the trees. Then I cut the grass. I usually have lunch under a big tree with my friend Tuan. He is a gardener, too. He's very funny and he always tells jokes.\nI love my job because I like being outdoors. But it isn't easy. In summer, it's very hot, and in winter, it's cold. On Sundays, I don't work. I often go for a walk with my wife and my two children. My son is eight and my daughter is ten. My daughter would like to be a gardener like me because she loves flowers. My son would like to be a pilot.",
+ q:[{q:"Where does Hung work?",o:["in a park","in a hospital","in a school"]},{q:"How does Hung go to work?",o:["He walks.","He goes by bus.","He rides a bike."]},{q:"What does Hung do first at work?",o:["He waters the flowers and trees.","He cuts the grass.","He has lunch."]},{q:"What is Tuan like?",o:["funny","quiet","lazy"]},{q:"Why does Hung love his job?",o:["Because he likes being outdoors.","Because it's easy.","Because it's hot."]},{q:"How many children does Hung have?",o:["two","one","three"]},
+ {q:"What time does Hung start work?",kw:["six|6"],m:"He starts work at six o'clock."},{q:"Does Hung work on Sundays?",kw:["\\bno\\b","doesn'?t|does not"],m:"No, he doesn't."},{q:"How old is Hung's daughter?",kw:["\\bten\\b|\\b10\\b"],m:"She is ten (years old)."},{q:"What would Hung's son like to be?",kw:["pilot"],m:"He'd like to be a pilot."}]},
+O:["My best friend lives on the fifth floor of Lotus Tower.","How often does your brother play the violin?","She is always helpful and friendly to everyone.||She is always friendly and helpful to everyone.","We sometimes go for a walk in the park after dinner.","What nationality are your new classmates?","Why would your sister like to be a gardener?","My uncle is an engineer and my aunt is a dentist.","Do your grandparents live in the countryside?","He'd like to be a reporter because he likes writing.","What do you and your friends like doing at the weekend?||What do your friends and you like doing at the weekend?"]},
+
+{id:"de4",lv:"Siêu khó",tag:"Vận dụng cao",color:"write",desc:"Bẫy thông tin khi nghe, từ nhiều âm tiết và ngoại lệ trọng âm, câu phức. Dành cho học sinh muốn đạt điểm tối đa.",
+L:[
+ {a:[["Amy","Hi, Duy. Is your new flat on the fifteenth floor?"],["Duy","No, it's on the fifth floor. My old flat was on the fifteenth floor."]],q:"Which floor is Duy's NEW flat on?",o:["the fifteenth floor","the fifth floor","the fiftieth floor"],k:1},
+ {a:[["Joe","Your address is 13 Hang Bac Street, right?"],["Thao","Not 13. It's 30. Three, zero. And it's Hang Bong Street, not Hang Bac."]],q:"Thao's address is ___.",o:["13 Hang Bac Street","30 Hang Bong Street","30 Hang Bac Street"],k:1},
+ {a:[["Liz","Are your pen friends from Malaysia, Son?"],["Son","Ahmad is Malaysian, but Wei isn't. Wei is from Singapore."]],q:"Wei is ___.",o:["Malaysian","Singaporean","Thai"],k:1},
+ {a:[["Max","Is your sister quiet, Yen?"],["Yen","Not really. At home, she's quiet. But at school she's very active. She's the captain of the football team."]],q:"What is Yen's sister like AT SCHOOL?",o:["quiet","active","lazy"],k:1},
+ {a:[["Kate","Do you play chess every day, Viet?"],["Viet","No. I play chess on Mondays, Wednesdays and Fridays. On the other days I play the piano."]],q:"How often does Viet play chess?",o:["every day","twice a week","three times a week"],k:2},
+ {a:[["Ms Ha","What do you usually do on Saturday mornings, Nhi?"],["Nhi","I usually surf the Internet. But this Saturday is different. I'm going to help my grandma in her garden."]],q:"What does Nhi USUALLY do on Saturday mornings?",o:["She helps her grandma.","She surfs the Internet.","She waters the garden."],k:1},
+ {a:[["Ryan","Your dad is a firefighter, isn't he, Hieu?"],["Hieu","He was a firefighter. Now he's a teacher. He teaches children how to stay safe from fires."]],q:"What is Hieu's father's job NOW?",o:["firefighter","teacher","doctor"],k:1},
+ {a:[["Nora","Would you like to be a singer like your mum, Chi?"],["Chi","I love singing, but no. I'd like to be a writer. I'd like to write songs for my mum!"]],q:"What would Chi like to do?",o:["sing songs on TV","write songs","teach music"],k:1},
+ {a:[["Paul","How many students in your class would like to be doctors, Lam?"],["Lam","Let me see. Eight students said doctor, but then two of them changed their minds. They'd like to be pilots now."]],q:"How many students would like to be doctors now?",o:["eight","six","ten"],k:1},
+ {a:[["Eva","What's your favourite subject, Tri? Maths?"],["Tri","Maths is fun, and I'm good at science. But my favourite subject is art. I love drawing."]],q:"Tri's favourite subject is ___.",o:["maths","science","art"],k:2}],
+S:["ho·tel|1 ma·chine|1 gui·tar|1 cap·tain|0","Chi·nese|1 de·sign|1 ca·reer|1 rab·bit|0","pho·to·graph|0 cal·en·dar|0 al·pha·bet|0 de·li·cious|1","ref·er·ee|2 chim·pan·zee|2 kan·ga·roo|2 in·ter·view|0","pho·tog·ra·pher|1 en·vi·ron·ment|1 a·quar·i·um|1 cat·er·pil·lar|0","math·e·mat·ics|2 in·for·ma·tion|2 con·ver·sa·tion|2 Jan·u·ar·y|0","po·lice·man|1 a·maz·ing|1 fan·tas·tic|1 ev·ery·one|0","Au·gust|0 A·pril|0 sum·mer|0 ex·am|1","Ma·lay·sia|1 Ja·mai·ca|1 Mo·roc·co|1 Can·a·da|0","per·haps|1 be·lieve|1 for·give|1 for·eign|0","dif·fer·ent|0 hos·pi·tal|0 pop·u·lar|0 con·tin·ue|1","A·mer·i·ca|1 Aus·tra·li·a|1 ex·per·i·ment|1 dic·tion·ar·y|0","book·shop|0 sea·side|0 rain·bow|0 be·yond|1","Ger·man·y|0 It·a·ly|0 Mex·i·co|0 Jap·a·nese|2","me·chan·ic|1 as·sis·tant|1 de·tec·tive|1 car·pen·ter|0"],
+G:[
+ ["Tom and his sister ___ in London, but their grandparents ___ in a village.",["live / live","lives / live","live / lives","living / live"],"Cả hai chủ ngữ đều số nhiều."],
+ ["'___ does your cousin live?' – 'In Hue. Her flat is on Le Loi Street.'",["Where","What","Who","When"],"Hỏi nơi sống: Where."],
+ ["There are two students from Japan in my class. ___ names are Ken and Yumi.",["Their","They're","There","Them"],"Tên của họ: their names."],
+ ["My aunt lives ___ 25 Hang Gai Street, ___ the centre of Ha Noi.",["at / in","on / in","in / at","at / on"],"at + số nhà; in the centre of."],
+ ["Which sentence is CORRECT?",["He's from the UK. He's British.","He's from the UK. He's Britain.","He's from British.","He's UK."],"Nước: the UK; quốc tịch: British."],
+ ["'What's your new teacher like?' – '___'",["She's strict but kind.","She likes music and art.","She's a music teacher.","She lives near the school."],"Hỏi tính cách, trả lời bằng tính từ."],
+ ["My brother loves maths. He ___ solves maths problems for fun, about five times a week.",["usually","never","once","sometime"],"Năm lần một tuần là thường xuyên."],
+ ["Mai likes ___ the flowers, but she doesn't like ___ the floor.",["watering / cleaning","water / clean","watering / clean","to watering / cleaning"],"Sau like (cả khẳng định và phủ định) dùng V-ing."],
+ ["How often ___ your parents go to the cinema? – ___ a month.",["do / Once","does / Once","do / One","are / Twice"],"your parents số nhiều: do; một lần: once."],
+ ["She ___ for school.",["is never late","never is late","late is never","is late never"],"to be + trạng từ tần suất + tính từ."],
+ ["'Would you like to be a pilot?' – '___ I'm afraid of heights.'",["No, I wouldn't.","No, I don't.","Yes, I would.","No, I'm not."],"Would you…? trả lời bằng would / wouldn't; sợ độ cao nên trả lời không."],
+ ["My father ___ a doctor, but he ___ like to be one.",["isn't / would","isn't / wouldn't","is / would","doesn't / would"],"Hiện tại không phải bác sĩ nhưng muốn trở thành."],
+ ["A person who reports the news for a newspaper is a ___.",["reporter","writer","teacher","gardener"],"Người đưa tin: reporter."],
+ ["___ would your sister like to be a nurse? – Because she'd like to look after sick people.",["Why","What","Where","How"],"Câu trả lời có Because, nên hỏi Why."],
+ ["My cousin is an ___. He designs bridges and roads.",["engineer","artist","farmer","singer"],"Thiết kế cầu đường: engineer."],
+ ["Which question has the answer 'Twice a week'?",["How often do you go swimming?","When do you go swimming?","What do you do at the weekend?","Where do you go swimming?"],"Twice a week trả lời How often."],
+ ["My best friend and I ___ classmates. We sit next to each other.",["are","is","am","be"],"My best friend and I = we: are."],
+ ["I'd like to be a gardener ___ I love plants.",["because","so","but","and"],"Nêu lý do: because."],
+ ["Hoa's grandparents live in Hue, ___ she often visits them in the summer.",["so","because","or","but"],"Kết quả: so (vì vậy)."],
+ ["Which word is DIFFERENT from the others?",["Singapore","Japanese","British","Malaysian"],"Singapore là tên nước; ba từ kia là quốc tịch."]],
+D:[
+ {t:"At the library",l:[["Ha","Excuse me, is this seat free?"],["Oliver",["Yes, it is. Please sit down.","Yes, I am.","No, it isn't free. Please sit down.","Yes, I do."]],["Ha","Thanks. I'm Ha. Are you the new student from England?"],["Oliver",["Not quite. I'm British, but I'm from Scotland, not England.","Yes, I'm from British.","No, I'm English.","Yes, England is my nationality."]],["Ha",["What's Scotland like?","What does Scotland like?","Where is Scotland?","Is Scotland your nationality?"]],["Oliver","It's lovely, but it's very cold in winter. And where are you from, Ha?"],["Ha",["I'm from Hai Phong, but now I live with my aunt in Ha Noi.","I'm Hai Phong, but I live my aunt.","I from Hai Phong.","My aunt is from Ha Noi."]],["Oliver","Do you go home often?"],["Ha",["Not very often. Only about once a month.","Yes, I often. Once a month.","No, I don't go never.","I go home by coach."]]]},
+ {t:"A class project",l:[["Khanh","Ivy, our project is about jobs. Who can we talk to?"],["Ivy",["How about my uncle? He's a reporter for VTV.","I'd like to be a reporter.","My uncle likes reporting.","Yes, we can."]],["Khanh",["Great! What does he do every day?","Where does he live?","Would he like to be a reporter?","What's he like?"]],["Ivy","He reports the news and talks to famous people."],["Khanh","Cool. My grandma is a nurse. She works at Bach Mai Hospital."],["Ivy",["How often does she work at night?","Does she work at a hospital?","Where does she work?","What would she like to be?"]],["Khanh","She works at night three times a week. It's hard, but she loves helping people."],["Ivy",["Then let's ask her why she loves her job.","Then let's ask her where she is from.","She'd like to be a nurse.","Then she doesn't love helping people."]],["Khanh","OK. And what about you? What would you like to be, Ivy?"],["Ivy",["I'm not sure yet. Maybe an engineer, because I love building things.","I'm an engineer.","I like being engineer.","Because I'd like to be an engineer."]]]},
+ {t:"A phone call with Grandpa",l:[["Grandpa","Hello, Nam. What do you usually do on Sunday mornings?"],["Nam",["I usually go jogging with Dad. Then we have pho together.","I'd like to go jogging with Dad.","I usually going jogging.","Yes, I usually do."]],["Grandpa",["How far do you run?","How often do you run?","How long is your dad?","Where is your dad?"]],["Nam","About three kilometres. And you, Grandpa? Do you still water the flowers every morning?"],["Grandpa",["Yes, I do. And I sometimes grow vegetables too.","Yes, I am. I water them.","No, I don't. I water them every morning.","Yes, I would."]],["Nam",["What vegetables do you grow?","How often do you grow vegetables?","Why do you water the flowers?","Do you grow vegetables?"]],["Grandpa","Tomatoes and carrots. You can take some home next time."],["Nam",["Thank you, Grandpa! See you next weekend.","You're welcome, Grandpa!","Yes, I can't.","No, thanks. I don't."]]]}],
+E:[
+ ["{Every} morning my sister {go} {for a walk} {with} our dog.",1,"goes","my sister = she, động từ thêm -es."],
+ ["{Does} your father work at a hospital? – {Yes}, {he} {is}.",3,"does","Câu hỏi Does… trả lời Yes, he does."],
+ ["{My} pen friend {lives} {in} {Singaporean}.",3,"Singapore","Sau in là tên nước."],
+ ["{She} {has} {never} {late} for school.",1,"is (She is never late)","late là tính từ, cần động từ to be."],
+ ["{I} {would like} {being} {a writer}.",2,"to be","would like + to + động từ."],
+ ["{He} {likes} {swimming} and {play} football.",3,"playing","Hai động từ sau like cùng dạng V-ing."],
+ ["{Their} {flat} {is} {in} the third floor.",3,"on","Tầng nhà dùng on."],
+ ["{What} {nationality} {does} {Ken}? – He's Japanese.",2,"is","What nationality is Ken?"],
+ ["{Do} {Mai} {often} {help} her mother with the cooking?",0,"Does","Mai = she, câu hỏi dùng Does."],
+ ["{My} {brother} {would} {likes} to be a firefighter.",3,"like","Sau would dùng like."]],
+C:{t:"An email from Singapore",box:false,
+ text:"Hi Lan,\nMy name is Wei Ling and I'm your new pen friend. I'm (1) Singapore, so I'm (2). I'm eleven years old. I live (3) my parents and my grandma in a flat (4) the twentieth floor. From our window, I can see the sea! My dad is (5) engineer and my mum is a nurse. She works (6) night, so she sleeps in the morning.\nI'm quite active. I (7) go swimming, about three times a week. My little brother doesn't (8) swimming. He prefers (9) comic books. In the future, I'd like to be a pilot (10) I'd like to travel around the world.\nWrite back soon!\nWei Ling",
+ opts:[["from","in","at","of"],["Singaporean","Singapore","Singaporese","Singaporian"],["with","and","for","to"],["on","in","at","of"],["an","a","the","two"],["at","in","on","for"],["usually","never","once","sometime"],["like","likes","liking","to liking"],["reading","read","reads","to reading"],["because","so","but","and"]]},
+R:{t:"The Nguyen family",text:"The Nguyen family lives in a three-storey house at 12 Lac Long Quan Street, Ha Noi. Mr Nguyen is a firefighter. He works for two days and then rests for two days, so he isn't at home every night. Mrs Nguyen is a writer. She writes stories for children at home, usually in the early morning when the house is quiet.\nThey have three children. Tam, the oldest, is fourteen. He's clever but a little lazy. He spends hours surfing the Internet. Linh is in Grade 5. She is the most active person in the family. She plays badminton every afternoon and goes swimming twice a week. The youngest, Bin, is only four. He loves watching cartoons and playing with the family's cat.\nEvery Sunday, the whole family goes for a walk around West Lake. Linh would like to be a firefighter like her dad. But Mr Nguyen says it's a dangerous job, so he'd like her to be a doctor. Linh doesn't agree. She says, 'Firefighters and doctors both help people!'",
+ q:[{q:"How many floors does the Nguyen family's house have?",o:["three","two","four"]},{q:"Why isn't Mr Nguyen at home every night?",o:["Because he works for two days and then rests for two days.","Because he lives in another city.","Because he writes stories at night."]},{q:"When does Mrs Nguyen usually write?",o:["in the early morning","in the afternoon","at night"]},{q:"Which words best describe Tam?",o:["clever but lazy","active and sporty","quiet and helpful"]},{q:"How often does Linh go swimming?",o:["twice a week","every afternoon","every Sunday"]},{q:"What does Bin love doing?",o:["watching cartoons","playing badminton","surfing the Internet"]},
+ {q:"Where does the family go for a walk every Sunday?",kw:["west lake"],m:"They go for a walk around West Lake."},{q:"What would Linh like to be?",kw:["firefighter"],m:"She'd like to be a firefighter."},{q:"What would Mr Nguyen like Linh to be?",kw:["doctor"],m:"He'd like her to be a doctor."},{q:"Why does Linh think both jobs are good?",kw:["help","people"],m:"Because firefighters and doctors both help people."}]},
+O:["My grandparents usually go for a walk around the lake every morning.","How often does your best friend surf the Internet?","Our flat is on the twelfth floor of a tall building.","She would like to be a writer because she loves telling stories.","What is your new Singaporean classmate like?","My father is a firefighter and he is very brave.","They never go shopping at the weekend because they are busy.","Where do your cousins from Australia live now?","In my free time, I like playing the violin with my sister.","Why would your brother like to be an engineer in the future?"]}
+];
+
+/* ===== Bộ sinh đề giữa kì 1 (Unit 1–5) ===== */
+const GEN=(function(){
+"use strict";
+/* ---------- random ---------- */
+function hash(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function RNG(seed){let a=hash(seed);const r=()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+  r.pick=arr=>arr[Math.floor(r()*arr.length)];
+  r.shuffle=arr=>{const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+  r.pickN=(arr,n)=>r.shuffle(arr).slice(0,n);
+  r.int=(a,b)=>a+Math.floor(r()*(b-a+1));
+  return r}
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const uniq=a=>[...new Set(a)];
+const others=(r,pool,not,n)=>r.pickN(pool.filter(x=>!not.includes(x)),n);
+
+/* ---------- word banks (Unit 1–5) ---------- */
+const BOYS=["Nam","Minh","Duc","Long","Phong","Quang","Hai","Bao","Tuan","Khoa","Viet","Son","Tom","Ben","Jack","Peter","Bill","Max","Sam","Leo","Kevin","Hung","Dat","Huy","Kien"];
+const GIRLS=["Mai","Lan","Hoa","Linh","Vy","Thu","Ha","Nga","Chi","Yen","Lucy","Anna","Mary","Kate","Emma","Lily","Sue","Amy","Jane","Mia","Nhi","Trang","Ngoc","Grace"];
+const CITIES_VN=["Ha Noi","Hai Phong","Da Nang","Hue","Can Tho","Nha Trang","Vinh","Da Lat"];
+const PLACES=["a big city","a small town","a village","the countryside","a quiet town","a busy city"];
+const TOWERS=["Sun Tower","Moon Tower","Lotus Tower","Sky Tower","Green Tower","Star Tower","Ocean Tower","River Tower","Rose Tower","Pearl Tower"];
+const STREETS=["Tran Phu Street","Le Loi Street","Kim Ma Street","Ba Trieu Street","Hang Bai Street","Nguyen Trai Street","Hoa Binh Street","Le Duan Street","Hai Ba Trung Street","Lang Ha Street","Doi Can Street","Quang Trung Street","Ly Thuong Kiet Street","Tran Hung Dao Street","Hang Gai Street","Lieu Giai Street","Nguyen Du Street","Le Lai Street","Hung Vuong Street","Phan Chu Trinh Street"];
+const ORD=["","first","second","third","fourth","fifth","sixth","seventh","eighth","ninth","tenth","eleventh","twelfth","thirteenth","fourteenth","fifteenth","sixteenth","seventeenth","eighteenth","nineteenth","twentieth"];
+const COUNTRIES=[["Japan","Japanese","Tokyo"],["Australia","Australian","Sydney"],["America","American","New York"],["Britain","British","London"],["Malaysia","Malaysian","Kuala Lumpur"],["Singapore","Singaporean","Singapore"],["Thailand","Thai","Bangkok"],["China","Chinese","Beijing"],["France","French","Paris"],["Canada","Canadian","Toronto"],["Korea","Korean","Seoul"]];
+const TRAITS=["friendly","helpful","clever","active","kind","funny","quiet","brave"];
+const TRAIT_BAD={kind:"kindly",clever:"cleverly",quiet:"quietly",brave:"bravely",helpful:"helpfully",active:"actively"};
+/* hobbies: [verb, rest, ing, s] */
+const HOB=[["play","the violin","playing","plays"],["play","the piano","playing","plays"],["play","chess","playing","plays"],["play","badminton","playing","plays"],["play","football","playing","plays"],["play","table tennis","playing","plays"],["surf","the Internet","surfing","surfs"],["go","for a walk","going","goes"],["water","the flowers","watering","waters"],["listen","to music","listening","listens"],["go","shopping","going","goes"],["go","camping","going","goes"],["ride","a bike","riding","rides"],["watch","cartoons","watching","watches"],["read","comic books","reading","reads"],["collect","stamps","collecting","collects"],["go","swimming","going","goes"],["draw","pictures","drawing","draws"],["sing","songs","singing","sings"],["fly","a kite","flying","flies"],["cook","","cooking","cooks"],["dance","","dancing","dances"]];
+const hb=h=>(h[0]+" "+h[1]).trim(), hi=h=>(h[2]+" "+h[1]).trim(), hs=h=>(h[3]+" "+h[1]).trim();
+const hiThird=(h,p)=>hi(h);
+const hsThird=(h,p)=>hs(h);
+/* jobs: [job, article, do-phrase, does-phrase, group] */
+const JOBS=[["teacher","a","teach children","teaches children","t"],["firefighter","a","put out fires","puts out fires","f"],["gardener","a","grow flowers","grows flowers","g"],["reporter","a","report the news","reports the news","r"],["writer","a","write stories","writes stories","w"],["farmer","a","grow rice","grows rice","fa"],["pilot","a","fly planes","flies planes","p"],["singer","a","sing songs","sings songs","s"],["doctor","a","help sick people","helps sick people","sick"],["nurse","a","look after sick people","looks after sick people","sick"],["engineer","an","build bridges","builds bridges","e"],["dentist","a","look after people's teeth","looks after people's teeth","d"],["artist","an","paint pictures","paints pictures","a"],["footballer","a","play football","plays football","fb"]];
+const SUBJECTS=["maths","English","science","art","music","Vietnamese","history","IT"];
+const FOODS=["pho","noodles","fried rice","fish and chips","chicken","pizza","spring rolls","banh mi"];
+const COLOURS=["blue","green","red","yellow","pink","purple","orange","white"];
+const ANIMALS=["dolphins","cats","dogs","rabbits","monkeys","tigers","elephants","parrots"];
+const FREQ=["always","usually","often","sometimes","never"];
+const HOWOFTEN=["once a week","twice a week","three times a week","every day","once a month","twice a month"];
+const DAYS=["Mondays","Tuesdays","Wednesdays","Thursdays","Fridays","Saturdays","Sundays"];
+const RELS=[["mother","f"],["father","m"],["aunt","f"],["uncle","m"],["sister","f"],["brother","m"],["grandma","f"],["grandpa","m"]];
+const CLASSES=["5A","5B","5C","5D","5E"];
+const TEACHERS_M=["Mr Long","Mr Hung","Mr Brown","Mr Smith","Mr Tuan"],TEACHERS_F=["Ms Hoa","Ms Lan","Ms Green","Mrs Hien","Ms Mai"];
+const pronOf=s=>s==="m"?{he:"He",he_:"he",his:"His",his_:"his",him:"him"}:{he:"She",he_:"she",his:"Her",his_:"her",him:"her"};
+const dayList=ds=>{const s=ds.slice().sort((x,y)=>DAYS.indexOf(x)-DAYS.indexOf(y));return s.length>1?s.slice(0,-1).join(", ")+" and "+s[s.length-1]:s[0]};
+const NUMW=["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve"];
+
+function persona(r,used){
+  let sex=r()<.5?"m":"f";let name;let tries=0;do{name=r.pick(sex==="m"?BOYS:GIRLS);tries++}while(used&&used.has(name)&&tries<20);if(used)used.add(name);
+  const p=Object.assign({name,sex},pronOf(sex));
+  p.age=r.pick([10,11]);p.cls=r.pick(CLASSES);
+  const c=r.pick(COUNTRIES);p.country=c[0];p.nat=c[1];p.city=c[2];
+  p.vnCity=r.pick(CITIES_VN);p.place=r.pick(PLACES);
+  p.flat=r()<.6;p.tower=r.pick(TOWERS);p.floor=r.int(2,20);p.street=r.pick(STREETS);p.num=r.int(3,120);
+  p.traits=r.pickN(TRAITS,2);p.hobs=r.pickN(HOB,3);p.freq=r.pick(FREQ.slice(0,4));p.howoften=r.pick(HOWOFTEN);
+  p.subject=r.pick(SUBJECTS);p.food=r.pick(FOODS);p.colour=r.pick(COLOURS);p.animal=r.pick(ANIMALS);
+  const js=r.pickN(JOBS,3);p.job=js[0];p.parentJob=js[1];p.job3=js[2];p.rel=r.pick(RELS);
+  return p;
+}
+const art=j=>j[1]+" "+j[0];
+
+/* ---------- PART L: listening ---------- */
+const LT=[
+ (r,L)=>{const p=persona(r);const o=r.pickN(CLASSES.filter(c=>c!==p.cls),2);const opts=r.shuffle([p.cls,...o]);return {a:[[p.name,`Hi, I'm ${p.name}. I'm in Class ${p.cls}.`+(L>=3?` My cousin is in Class ${o[0]}.`:"")]],q:`${p.name} is in Class ___.`,o:opts,k:opts.indexOf(p.cls)}},
+ (r,L)=>{const p=persona(r);let n,d1,d2,a;
+   if(L>=3){const t=r.int(3,9);const teen=["","","","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"][t];const ty=["","","","thirty","forty","fifty","sixty","seventy","eighty","ninety"][t];
+     const isTeen=r()<.5;n=isTeen?10+t:t*10;d1=isTeen?t*10:10+t;d2=n+100;let q=persona(r);while(q.name===p.name)q=persona(r);
+     a=[[q.name,`What's your address, ${p.name}?`],[p.name,`It's ${n} ${p.street}.`],[q.name,`${cap(isTeen?ty:teen)}?`],[p.name,`No, ${isTeen?teen:ty}. ${isTeen?"One, "+NUMW[t]:cap(NUMW[t])+", zero"}.`]]}
+   else{n=p.num;d1=n+10;d2=n>10?n-10:n+20;a=[[p.name,`My address is ${n} ${p.street}.`]]}
+   const opts=r.shuffle([n,d1,d2].map(String));return {a,q:`${p.name}'s address is ___ ${p.street}.`,o:opts,k:opts.indexOf(String(n))}},
+ (r,L)=>{const nm=new Set();const p=persona(r,nm),q=persona(r,nm);const oc=r.pickN(COUNTRIES.filter(c=>c[1]!==p.nat),2);let a;
+   const fp=pronOf(r()<.5?"m":"f");if(L>=3)a=[[q.name,`Is your friend ${oc[0][1]}, ${p.name}?`],[p.name,`No. ${fp.his} father is ${oc[0][1]}, but ${fp.he_} is from ${p.country}. ${fp.he}'s ${p.nat}.`]];
+   else a=[[q.name,`What nationality is your friend, ${p.name}?`],[p.name,`${fp.he}'s ${p.nat}. ${fp.he}'s from ${p.city}.`]];
+   const opts=r.shuffle([p.nat,oc[0][1],oc[1][1]]);return {a,q:`${p.name}'s friend is ___.`,o:opts,k:opts.indexOf(p.nat)}},
+ (r,L)=>{const nm=new Set();const p=persona(r,nm),q=persona(r,nm);const rel=r.pick([["sister","f"],["brother","m"]]);const pr=pronOf(rel[1]);const [t1,t2]=p.traits;const t3=others(r,TRAITS,[t1,t2],1)[0];
+   const a=L>=3?[[q.name,`Is your ${rel[0]} ${t2}, ${p.name}?`],[p.name,`Not really. ${pr.he}'s ${t1}. ${pr.he} isn't very ${t2}.`]]:[[q.name,`What's your ${rel[0]} like, ${p.name}?`],[p.name,`${pr.he}'s ${t1}.`]];
+   const opts=r.shuffle([t1,t2,t3]);return {a,q:`${p.name}'s ${rel[0]} is ___.`,o:opts,k:opts.indexOf(t1)}},
+ (r,L)=>{const nm=new Set();const p=persona(r,nm),q=persona(r,nm);const [h1,h2,h3]=p.hobs;let a,ans=h1;
+   if(L>=3){a=[[q.name,`What do you like doing in your free time, ${p.name}?`],[p.name,`I like ${hi(h2)}, but I love ${hi(h1)} most.`]]}
+   else a=[[q.name,`What do you like doing in your free time, ${p.name}?`],[p.name,`I like ${hi(h1)}.`]];
+   const opts=r.shuffle([h1,h2,h3].map(hi));return {a,q:L>=3?`What does ${p.name} love doing most?`:`${p.name} likes ___.`,o:opts,k:opts.indexOf(hi(ans))}},
+ (r,L)=>{const nm=new Set();const p=persona(r,nm),q=persona(r,nm);const h=p.hobs[0];let a,ans;
+   if(L>=3){const n=r.int(2,3);const ds=r.pickN(DAYS.slice(0,5),n);ans=n===2?"twice a week":"three times a week";a=[[q.name,`Do you ${hb(h)} every day, ${p.name}?`],[p.name,`No. I ${hb(h)} on ${dayList(ds)}.`]];
+     const opts=r.shuffle(["every day","twice a week","three times a week"]);return {a,q:`How often does ${p.name} ${hb(h)}?`,o:opts,k:opts.indexOf(ans)}}
+   ans=r.pick(["once a week","twice a week","three times a week"]);a=[[q.name,`How often do you ${hb(h)}, ${p.name}?`],[p.name,cap(ans)+"."]];
+   const opts=["once a week","twice a week","three times a week"];return {a,q:`${p.name} ${hsThird(h,p)} ___.`,o:opts,k:opts.indexOf(ans)}},
+ (r,L)=>{const nm=new Set();const p=persona(r,nm),q=persona(r,nm);const j=p.job,j2=p.parentJob;let a;
+   if(L>=3)a=[[q.name,`What would you like to be in the future, ${p.name}?`],[p.name,`My mum wants me to be ${art(j2)}, but I'd like to be ${art(j)}.`]];
+   else a=[[q.name,`What would you like to be in the future, ${p.name}?`],[p.name,`I'd like to be ${art(j)}.`]];
+   const opts=r.shuffle([art(j),art(j2),art(p.job3)]);return {a,q:`${p.name} would like to be ___.`,o:opts,k:opts.indexOf(art(j))}},
+ (r,L)=>{const nm=new Set();const p=persona(r,nm),q=persona(r,nm);const j=p.job;const d=others(r,JOBS.filter(x=>x[4]!==j[4]),[j],2);
+   const a=[[q.name,`Why would you like to be ${art(j)}, ${p.name}?`],[p.name,`Because I'd like to ${j[2]}.`+(L>=3?` My ${p.rel[0]} is ${art(d[0])}, but I don't want to ${d[0][2]}.`:"")]];
+   const opts=r.shuffle([j[2],d[0][2],d[1][2]]);return {a,q:`${p.name} would like to ___.`,o:opts,k:opts.indexOf(j[2])}},
+ (r,L)=>{const p=persona(r);let f=p.floor,f2=f>10?f-10:f+10;let a;
+   if(L>=4){a=[[p.name,`My old flat was on the ${ORD[f2]} floor. Now we live on the ${ORD[f]} floor of ${p.tower}.`]]}
+   else a=[[p.name,`I live in a flat on the ${ORD[f]} floor of ${p.tower}.`]];
+   const f3=f===20?19:f+1;const opts=r.shuffle([ORD[f],ORD[f2],ORD[f3]]);return {a,q:`Which floor is ${p.name}'s ${L>=4?"NEW ":""}flat on? The ___ floor.`,o:opts,k:opts.indexOf(ORD[f])}},
+ (r,L)=>{const nm=new Set();const p=persona(r,nm),q=persona(r,nm);const kind=r.pick([["subject",SUBJECTS],["food",FOODS],["colour",COLOURS]]);const [ans,o1,o2]=r.pickN(kind[1],3);
+   const a=L>=3?[[q.name,`What's your favourite ${kind[0]}, ${p.name}? Is it ${o1}?`],[p.name,`I like ${o1} and ${o2}, but my favourite ${kind[0]} is ${ans}.`]]:[[q.name,`What's your favourite ${kind[0]}, ${p.name}?`],[p.name,`It's ${ans}.`]];
+   const opts=r.shuffle([ans,o1,o2]);return {a,q:`${p.name}'s favourite ${kind[0]} is ___.`,o:opts,k:opts.indexOf(ans)}},
+ (r,L)=>{const nm=new Set();const p=persona(r,nm),q=persona(r,nm);const live=p.flat?"a flat":"a house";const alt=p.flat?"a house":"a flat";
+   const a=L>=3?[[q.name,`Do you live in ${alt}, ${p.name}?`],[p.name,`No, I don't. My grandparents live in ${alt}. I live in ${live} in ${p.vnCity}.`]]:[[q.name,`Do you live in ${alt}, ${p.name}?`],[p.name,`No, I don't. I live in ${live}.`]];
+   const opts=r.shuffle([live,alt,"a village"]);return {a,q:`${p.name} lives in ___.`,o:opts,k:opts.indexOf(live)}},
+ (r,L)=>{const nm=new Set();const p=persona(r,nm),q=persona(r,nm);const j=p.parentJob,j2=p.job3;const rel=p.rel;const pr=pronOf(rel[1]);
+   const a=L>=3?[[q.name,`Is your ${rel[0]} ${art(j2)}, ${p.name}?`],[p.name,`No, ${pr.he_} isn't. ${pr.he}'s ${art(j)}. My cousin is ${art(j2)}.`]]:[[q.name,`What's your ${rel[0]}'s job, ${p.name}?`],[p.name,`${pr.he}'s ${art(j)}.`]];
+   const opts=r.shuffle([art(j),art(j2),art(p.job)]);return {a,q:`${p.name}'s ${rel[0]} is ___.`,o:opts,k:opts.indexOf(art(j))}}
+];
+function genL(r,L,used){const out=[];const order=r.shuffle(LT.map((_,i)=>i));let i=0,guard=0;
+  while(out.length<10&&guard++<600){const t=LT[order[i++%order.length]];const it=t(r,L);
+    if(new Set(it.o).size!==3||it.k<0)continue;const key="L|"+it.a.map(x=>x[1]).join(" ");if(used.has(key))continue;used.add(key);out.push(it)}
+  return out}
+
+/* ---------- PART S: stress ---------- */
+const SB=`dol·phin|0|1 ten·nis|0|1 ci·ty|0|1 vil·lage|0|1 col·our|0|1 sub·ject|0|1 teach·er|0|1 farm·er|0|1 pi·lot|0|1 sing·er|0|1 wri·ter|0|1 doc·tor|0|1 ac·tive|0|1 friend·ly|0|1 clev·er|0|1 al·ways|0|1 of·ten|0|1 nev·er|0|1 Mon·day|0|1 Sun·day|0|1 Fri·day|0|1 Tues·day|0|1 Thurs·day|0|1 moth·er|0|1 fa·ther|0|1 sis·ter|0|1 broth·er|0|1 Eng·land|0|1 Lon·don|0|1 Thai·land|0|1 mu·sic|0|1 pen·cil|0|1 ta·ble|0|1 hap·py|0|1 fun·ny|0|1 help·ful|0|1 gar·den|0|1 kitch·en|0|1 tow·er|0|1 ap·ple|0|1 or·ange|0|1 yel·low|0|1 for·ty|0|1 fif·ty|0|1 six·ty|0|1 thir·ty|0|1 num·ber|0|1 pur·ple|0|1 pa·per|0|1 mon·key|0|1 ti·ger|0|1 par·rot|0|1 rab·bit|0|1 pic·nic|0|1 home·work|0|1 birth·day|0|1 class·room|0|1 foot·ball|0|1 sand·wich|0|1 chick·en|0|1 noo·dles|0|1 pret·ty|0|1 la·zy|0|1 spor·ty|0|1 cof·fee|0|1 win·dow|0|1 ru·ler|0|1 note·book|0|1 morn·ing|0|1 eve·ning|0|1 flow·er|0|1 wa·ter|0|1 sum·mer|0|1 win·ter|0|1 qui·et|0|1 bu·sy|0|1 build·ing|0|1 sci·ence|0|2 danc·ing|0|1 sing·ing|0|1 cook·ing|0|1 read·ing|0|1 swim·ming|0|1 paint·ing|0|1 Chi·na|0|2 Brit·ain|0|2 cap·tain|0|3 for·eign|0|3 rain·bow|0|2 book·shop|0|2 sea·side|0|3 Au·gust|0|3 A·pril|0|2 Wednes·day|0|2 dent·ist|0|1 art·ist|0|1 brave·ly|0|3 care·ful|0|2 use·ful|0|2 `
++`gi·raffe|1|1 be·hind|1|1 hel·lo|1|1 good·bye|1|1 a·bout|1|1 a·gain|1|1 to·night|1|1 en·joy|1|1 ar·rive|1|1 be·cause|1|1 Ja·pan|1|1 Ju·ly|1|2 ad·dress|1|2 fif·teen|1|1 six·teen|1|1 thir·teen|1|1 four·teen|1|1 eigh·teen|1|1 nine·teen|1|1 bal·loon|1|1 re·peat|1|2 for·get|1|2 be·gin|1|2 to·day|1|1 car·toon|1|1 gui·tar|1|1 po·lice|1|2 Chi·nese|1|3 ho·tel|1|3 a·way|1|2 a·round|1|2 po·lite|1|2 mis·take|1|2 in·vite|1|2 ex·plain|1|2 com·plete|1|2 a·bove|1|2 be·side|1|2 be·low|1|2 be·tween|1|2 up·stairs|1|2 down·stairs|1|2 a·long|1|2 de·cide|1|2 a·gree|1|2 re·turn|1|2 de·scribe|1|3 re·ply|1|2 ma·chine|1|3 de·sign|1|3 ca·reer|1|4 per·haps|1|3 be·lieve|1|2 for·give|1|3 ex·am|1|3 be·yond|1|4 Bra·zil|1|3 pre·fer|1|2 Ka·rate|1|4 `
++`gar·den·er|0|2 fam·i·ly|0|2 hol·i·day|0|2 an·i·mal|0|2 sev·en·ty|0|2 el·e·phant|0|2 fa·vour·ite|0|2 won·der·ful|0|2 cin·e·ma|0|2 Sat·ur·day|0|2 yes·ter·day|0|2 bad·min·ton|0|2 beau·ti·ful|0|2 fire·fight·er|0|2 news·pa·per|0|3 grand·moth·er|0|2 grand·fa·ther|0|2 ham·bur·ger|0|3 cam·er·a|0|3 u·ni·form|0|3 sta·di·um|0|3 the·a·tre|0|3 li·brar·y|0|2 his·to·ry|0|2 fac·to·ry|0|3 di·no·saur|0|3 pho·to·graph|0|3 cal·en·dar|0|3 al·pha·bet|0|3 ev·ery·one|0|3 dif·fer·ent|0|3 hos·pi·tal|0|2 pop·u·lar|0|3 Can·a·da|0|3 Ger·man·y|0|3 It·a·ly|0|3 Mex·i·co|0|3 car·pen·ter|0|4 in·ter·view|0|4 bak·er·y|0|2 ex·er·cise|0|3 char·ac·ter|0|4 straw·ber·ry|0|3 pi·o·neer|2|4 `
++`com·pu·ter|1|2 ba·na·na|1|2 re·port·er|1|2 to·mor·row|1|2 um·brel·la|1|2 pa·go·da|1|2 Sep·tem·ber|1|2 Oc·to·ber|1|2 No·vem·ber|1|2 De·cem·ber|1|2 pi·a·no|1|2 to·ma·to|1|2 po·ta·to|1|2 ex·cit·ing|1|3 im·por·tant|1|3 to·geth·er|1|3 mu·se·um|1|2 re·mem·ber|1|3 mu·si·cian|1|3 de·li·cious|1|4 po·lice·man|1|4 a·maz·ing|1|3 fan·tas·tic|1|3 con·tin·ue|1|4 Ma·lay·sia|1|4 Ja·mai·ca|1|4 Mo·roc·co|1|4 me·chan·ic|1|4 as·sis·tant|1|4 de·tec·tive|1|4 e·ra·ser|1|3 `
++`Jap·a·nese|2|3 Viet·nam·ese|2|3 en·gi·neer|2|3 af·ter·noon|2|3 kan·ga·roo|2|3 sev·en·teen|2|2 vol·un·teer|2|4 Por·tu·guese|2|4 in·tro·duce|2|3 un·der·stand|2|3 ref·er·ee|2|4 chim·pan·zee|2|4 `
++`in·ter·est·ing|0|3 cal·cu·la·tor|0|4 hel·i·cop·ter|0|4 wa·ter·mel·on|0|3 cat·er·pil·lar|0|4 Jan·u·ar·y|0|3 Feb·ru·ar·y|0|4 dic·tion·ar·y|0|4 u·su·al·ly|0|3 `
++`A·mer·i·can|1|3 Aus·tra·li·an|1|3 ge·og·ra·phy|1|4 ac·tiv·i·ty|1|3 pho·tog·ra·pher|1|4 en·vi·ron·ment|1|4 a·quar·i·um|1|4 A·mer·i·ca|1|3 Aus·tra·li·a|1|3 ex·per·i·ment|1|4 Ca·na·di·an|1|4 `
++`math·e·mat·ics|2|4 in·for·ma·tion|2|4 con·ver·sa·tion|2|4 ed·u·ca·tion|2|4`;
+const SWORDS=SB.trim().split(/\s+/).map(s=>{const [w,i,d]=s.split("|");return {w,i:+i,d:+d,n:w.split("·").length,word:w.replace(/·/g,"")}}).filter(x=>x.word!=="Karate"&&x.word!=="pioneer");
+function genS(r,L,used){
+  const out=[];const inTest=new Set();let guard=0;
+  const counts=L===1?[2]:L===2?[2,2,3,3]:L===3?[2,3,3,4]:[2,3,3,4,4];
+  while(out.length<15&&guard++<3000){
+    const n=r.pick(counts);const pool=SWORDS.filter(x=>x.n===n&&x.d<=Math.max(L,2)&&!inTest.has(x.word));
+    const g={};pool.forEach(x=>(g[x.i]=g[x.i]||[]).push(x));const ks=Object.keys(g);const big=ks.filter(k=>g[k].length>=3);if(!big.length||ks.length<2)continue;
+    const kb=(big.length>1&&r()<.75)?big.reduce((m,k)=>g[k].length>g[m].length?k:m,big[0]):r.pick(big);const ko=r.pick(ks.filter(k=>k!==kb));const four=[...r.pickN(g[kb],3),r.pick(g[ko])];
+    if(L>=3&&!four.some(x=>x.d>=L-1))continue;
+    const key="S|"+four.map(x=>x.word).sort().join(" ");if(used.has(key))continue;used.add(key);four.forEach(x=>inTest.add(x.word));
+    out.push(r.shuffle(four).map(x=>x.w+"|"+x.i).join(" "))}
+  return out;
+}
+
+/* ---------- PART G: vocabulary & grammar ---------- */
+function subj(r,plural){const p=persona(r);const opts=plural?[[`${p.name} and ${persona(r).name}`,"they"],["My parents","they"],["My cousins","they"],["We","we"],["They","they"]]:[[p.name,p.he_],[`My ${p.rel[0]}`,pronOf(p.rel[1]).he_],["He","he"],["She","she"]];return r.pick(opts)}
+const GT=[
+ [1,(r)=>{const s=r.pick([["I","am"],["He","is"],["She","is"],["We","are"],["They","are"],[persona(r).name,"is"],["My friends","are"]]);const c=r.pick(CLASSES);return [`${s[0]} ___ in Class ${c}.`,[s[1],...["am","is","are"].filter(x=>x!==s[1]),"be"],`${s[0]} đi với ${s[1]}.`]}],
+ [1,(r)=>{const p=persona(r);const k=r.pick([["sport",["football","badminton","swimming","tennis"]],["food",FOODS],["colour",COLOURS],["subject",SUBJECTS]]);return [`${p.name} is my friend. ___ favourite ${k[0]} is ${r.pick(k[1])}.`,[p.his,p.his==="His"?"Her":"His",p.he,"Their"],`${p.name} là ${p.sex==="m"?"bạn nam, dùng His":"bạn nữ, dùng Her"}.`]}],
+ [1,(r)=>{const s=subj(r,r()<.5);const pl=["they","we"].includes(s[1]);const pl2=r.pick(PLACES);return [`${s[0]} ___ in ${pl2}.`,pl?["live","lives","living","is live"]:["lives","live","living","is live"],pl?"Chủ ngữ số nhiều dùng live.":"Chủ ngữ số ít (he/she) dùng lives."]}],
+ [2,(r)=>{const s=subj(r,r()<.5);const pl=["they","we"].includes(s[1]);const home=r.pick(["this house","that flat","this tower","a big house"]);return [`___ ${s[0]==="We"?"you":s[0].replace(/^My/,"your")} live in ${home}? – Yes, ${s[0]==="We"?"we":s[1]} ${pl?"do":"does"}.`,pl?["Do","Does","Is","Are"]:["Does","Do","Is","Are"],pl?"Chủ ngữ số nhiều: Do.":"Chủ ngữ số ít: Does."]}],
+ [2,(r)=>{const p=persona(r);const home=r.pick(["a house","a flat"]);const alt=home==="a house"?"a flat":"a house";return [`${p.name} ___ live in ${home}. ${p.he} lives in ${alt}.`,["doesn't","don't","isn't","not"],`Phủ định với ${p.he_}: doesn't + động từ.`]}],
+ [1,(r)=>{const p=persona(r);return [`${p.he} lives ___ ${r.int(2,150)} ${r.pick(STREETS)}.`,["at","on","in","to"],"Địa chỉ có số nhà dùng at."]}],
+ [2,(r)=>{const p=persona(r);return [`${p.he} lives ___ ${r.pick(STREETS)}.`,["on","at","in","to"],"Tên đường không có số nhà dùng on."]}],
+ [2,(r)=>[`Our flat is ___ the ${ORD[r.int(2,20)]} floor.`,["on","in","at","to"],"Tầng nhà dùng on."]],
+ [1,(r)=>{const p=persona(r);const c=r.pick(COUNTRIES);const o=others(r,COUNTRIES,[c],2);return [`${p.name} is from ${c[0]}. ${p.he}'s ___.`,[c[1],c[0],o[0][1],o[1][1]],`Người đến từ ${c[0]} là ${c[1]}.`]}],
+ [2,(r)=>{const p=persona(r);const c=r.pick(COUNTRIES);const o=others(r,COUNTRIES,[c],1)[0];return [`Where's ${p.name} from? – ${p.he}'s from ___.`,[c[0],c[1],o[1],o[1]+"s"],"Sau from là tên nước."]}],
+ [1,(r)=>{const p=persona(r);return [`What's ${p.name} ___? – ${p.he}'s ${r.pick(TRAITS)}.`,["like","likes","look","from"],"What's … like? hỏi tính cách."]}],
+ [2,(r)=>{const p=persona(r);const h=r.pick(HOB);return [`What does ${p.name} like? – ___`,[`${p.he} likes ${hiThird(h,p)}.`,`${p.he}'s ${r.pick(TRAITS)}.`,`${p.he}'s from ${r.pick(COUNTRIES)[0]}.`,`${p.he}'s ${art(r.pick(JOBS))}.`],"What does … like? hỏi sở thích."]}],
+ [1,(r)=>{const s=subj(r,false);const h=r.pick(HOB);return [`${s[0]} likes ___ ${h[1]}.`.replace("  "," ").replace(" .","."),[h[2],h[0],h[3],"to "+h[2]],"like + V-ing."]}],
+ [2,(r)=>{const v=r.pick([["swim","swimming","swiming","swimmming"],["ride","riding","rideing","ridding"],["dance","dancing","danceing","dancin"],["write","writing","writeing","writting"],["shop","shopping","shoping","shopeing"],["run","running","runing","runeing"]]);const p=persona(r);return [`${p.name} likes ___ after school.`,[v[1],v[2],v[3],v[0]],`Chính tả V-ing: ${v[0]} → ${v[1]}.`]}],
+ [2,(r)=>{const p=persona(r);const h=r.pick(HOB);const t=r.pick([["always","every day"],["never","doesn't like it"]]);return [`${p.name} ___ ${hsThird(h,p)}. ${t[0]==="always"?p.he+" does it every day.":p.he+" doesn't like it."}`,[t[0],t[0]==="always"?"never":"always","once","twice"],t[0]==="always"?"Ngày nào cũng làm: always.":"Không thích nên không bao giờ làm: never."]}],
+ [2,(r)=>{const p=persona(r);const h=r.pick(HOB);return [`How often does ${p.name} ${hb(h)}? – ___`,[cap(r.pick(["once a week","twice a week","three times a week","every day"]))+".","At the weekend.","In the park.",`With ${p.his_} ${r.pick(["dad","mum","friends"])}.`],"How often hỏi tần suất, trả lời số lần."]}],
+ [1,(r)=>{const s=subj(r,false);const j=r.pick(JOBS);return [`${s[0]} would like ___ ${art(j)}.`,["to be","be","being","is"],"would like + to + động từ."]}],
+ [1,(r)=>{const j=r.pick(JOBS);const s=r.pick(["My uncle","My aunt","My father","My mother","Her brother","His sister"]);return [`${s} is ___ ${j[0]}.`,[j[1],j[1]==="a"?"an":"a","the","in"],j[1]==="an"?`${j[0]} bắt đầu bằng nguyên âm: an.`:`${j[0]} bắt đầu bằng phụ âm: a.`]}],
+ [1,(r)=>{const j=r.pick(JOBS);const d=others(r,JOBS.filter(x=>x[4]!==j[4]),[j],3);return [`A ___ ${j[3]}.`,[j[0],...d.map(x=>x[0])],`${cap(art(j))} ${j[3]}.`]}],
+ [2,(r)=>{const p=persona(r);const j=r.pick(JOBS);return [`Why would ${p.name} like to be ${art(j)}? – Because ${p.he_}'d like ___ ${j[2].split(" ").slice(1).join(" ")}.`.replace(/ \.$/,"."),["to "+j[2].split(" ")[0],j[2].split(" ")[0],j[3].split(" ")[0],"to "+j[3].split(" ")[0]],"would like + to + động từ."]}],
+ [1,(r)=>{const p=persona(r);const j=r.pick(JOBS);return [`Why would ${p.name} like to be ${art(j)}? – ___ ${p.he_}'d like to ${j[2]}.`,["Because","So","And","But"],"Trả lời câu hỏi Why bằng Because."]}],
+ [2,(r)=>{const t=r.pick([["What's your address?","It's "+r.int(2,150)+" "+r.pick(STREETS)+".","What"],["Where do you live?","I live in "+r.pick(PLACES)+".","Where"],["What nationality is your friend?","He's "+r.pick(COUNTRIES)[1]+".","What nationality"],["How often do you "+hb(r.pick(HOB))+"?",cap(r.pick(HOWOFTEN))+".","How often"],["Why would you like to be "+art(r.pick(JOBS))+"?","Because I'd like to help people.","Why"]]);
+   const ws=["What","Where","What nationality","How often","Why","Who"];const d=r.pickN(ws.filter(w=>w!==t[2]),3);return [`___ ${t[0].slice(t[2].length+1)} – ${t[1]}`,[t[2],...d],`Câu trả lời “${t[1]}” ứng với ${t[2]}.`]}],
+ [3,(r)=>{const p=persona(r);const a=r.pick(["always","usually","often","never"]);const adj=r.pick(["busy","happy","late for school","tired"]);return ["Choose the correct sentence.",[`${p.he} is ${a} ${adj}.`,`${p.he} ${a} is ${adj}.`,`${cap(a)} ${p.he_} is ${adj}.`,`${p.he} is ${adj} ${a}.`],"Trạng từ tần suất đứng sau to be."]}],
+ [3,(r)=>{const p=persona(r);const h=r.pick(HOB);const a=r.pick(["always","usually","often","sometimes"]);return ["Choose the correct sentence.",[`${p.name} ${a} ${hsThird(h,p)}.`,`${p.name} ${hsThird(h,p).replace(" "," "+a+" ")}.`,`${p.name} ${a} ${hiThird(h,p)}.`,`${cap(a)} ${p.name} ${hb(h)}.`],"Trạng từ tần suất đứng trước động từ thường, động từ vẫn chia theo ngôi."]}],
+ [3,(r)=>{const a=persona(r),b=persona(r),c=persona(r);return [`${a.name} and ${b.name} ___ in ${r.pick(PLACES)}, but ${c.name} ___ in ${r.pick(TOWERS)}.`,["live / lives","lives / live","live / live","living / lives"],"Hai người: live; một người: lives."]}],
+ [3,(r)=>{const p=persona(r);return [`___ your grandparents live? – In ${r.pick(CITIES_VN)}.`,["Where do","Where does","What do","Where are"],"your grandparents số nhiều: Where do…?"]}],
+ [3,(r)=>{const c=r.pick(COUNTRIES);const o=others(r,COUNTRIES,[c],3);const odd=r.pick([0,1]);return ["Which word is DIFFERENT from the others?",odd?[c[1],...o.map(x=>x[0])]:[c[0],...o.map(x=>x[1])],odd?`${c[1]} là quốc tịch; ba từ kia là tên nước.`:`${c[0]} là tên nước; ba từ kia là quốc tịch.`]}],
+ [3,(r)=>{const p=persona(r);const s=r.pick([["I","don't"],["We","don't"],[p.name,"doesn't"],["My brother","doesn't"]]);const h=r.pick(HOB);return [`${s[0]} ___ like ${hi(h)}.`,[s[1],s[1]==="don't"?"doesn't":"don't","isn't","not"],s[1]==="don't"?`${s[0]} đi với don't.`:`Ngôi thứ ba số ít đi với doesn't.`]}],
+ [4,(r)=>{const p=persona(r);const n=r.pick(["once","twice"]);return [`How often ___ your parents ${hb(r.pick(HOB))}? – ${cap(n)} a month.`,["do","does","are","is"],"your parents số nhiều: do."]}],
+ [4,(r)=>{const p=persona(r);const j=r.pick(JOBS);return [`'Would you like to be ${art(j)}?' – '___ I'd like to be ${art(others(r,JOBS,[j],1)[0])}.'`,["No, I wouldn't.","No, I don't.","Yes, I would.","No, I'm not."],"Would you…? trả lời bằng would / wouldn't."]}],
+ [4,(r)=>{const p=persona(r);return [`${p.name}'s grandparents live in ${r.pick(CITIES_VN)}, ___ ${p.he_} often visits them in the summer.`,["so","because","or","but"],"Kết quả: so."]}],
+ [4,(r)=>{const p=persona(r);const j=r.pick(JOBS);return [`${p.name}'s ${p.rel[0]} ___ ${art(j)}, but ${pronOf(p.rel[1]).he_} ___ like to be one.`,["isn't / would","isn't / wouldn't","is / would","doesn't / would"],"Hiện tại không phải, nhưng muốn trở thành."]}],
+ [4,(r)=>{const p=persona(r);const a=r.pick(HOB),b=r.pick(HOB.filter(h=>h!==a));return [`${p.name} likes ___ ${a[1]}, but ${p.he_} doesn't like ___ ${b[1]}.`.replace(/  /g," "),[`${a[2]} / ${b[2]}`,`${a[0]} / ${b[0]}`,`${a[2]} / ${b[0]}`,`to ${a[2]} / ${b[2]}`],"Sau like (khẳng định và phủ định) dùng V-ing."]}]
+];
+function genG(r,L0,used){const OUT=[];for(let L=L0;L<=4&&OUT.length<20;L++){const part=(genG_(r,L,used,20-OUT.length,L0));OUT.push(...part)}return OUT}
+function genG_(r,L,used,NEED,L0){
+  const pool=GT.map((t,i)=>[t,i]).filter(x=>x[0][0]<=L);const cnt={};const fails={};const out=[];let guard=0;const cap=pool.length>=20?1:2;
+  while(out.length<NEED&&guard++<4000){
+    let cand=pool.filter(x=>(cnt[x[1]]||0)<cap&&(fails[x[1]]||0)<40);if(!cand.length)cand=pool.filter(x=>(fails[x[1]]||0)<40);if(!cand.length)break;
+    const fresh=cand.filter(x=>!cnt[x[1]]);if(fresh.length)cand=fresh;
+    if(L>=3){const hard=cand.filter(x=>x[0][0]>=L-1);if(hard.length&&r()<.6)cand=hard}
+    const [t,i]=r.pick(cand);const it=t[1](r);const key="G|"+it[0]+"|"+it[1][0];
+    if(new Set(it[1]).size!==it[1].length||used.has(key)){fails[i]=(fails[i]||0)+1;continue}
+    used.add(key);cnt[i]=(cnt[i]||0)+1;out.push(it)}
+  return out}
+
+/* ---------- PART D: dialogues ---------- */
+const DT=[
+ (r,a,b)=>({t:"Getting to know you",l:[[a.name,`Hello! I'm ${a.name}. What's your name?`],[b.name,[`My name's ${b.name}.`,"I'm fine, thank you.",`It's ${b.name}'s name.`,`I'm ${b.age}.`]],[a.name,`Nice to meet you, ${b.name}. Where are you from?`],[b.name,[`I'm from ${b.country}. I'm ${b.nat}.`,`I'm from ${b.nat}.`,`I live in ${b.flat?"a flat":"a house"}.`,`I'm in Class ${b.cls}.`]],[a.name,["What class are you in?","What's your class like?","Where is your class?","How old are you?"]],[b.name,`I'm in Class ${b.cls}. Who's your best friend?`],[a.name,[`It's ${a.friend.name}. ${a.friend.he}'s in my class.`,`It's ${a.friend.name}'s friend.`,`${a.friend.name} is my best friend's.`,`Yes, ${a.friend.he_} is.`]],[b.name,[`What's ${a.friend.he_} like?`,`What does ${a.friend.he_} like?`,`What does ${a.friend.he_} do?`,`Where is ${a.friend.he_}?`]],[a.name,`${a.friend.he}'s very ${a.friend.traits[0]}.`]]}),
+ (r,a,b)=>({t:"Where do you live?",l:[[a.name,`Where do you live, ${b.name}?`],[b.name,[`I live in ${b.tower}. It's a tall building.`,`I'm from ${b.tower}.`,`I lives in ${b.tower}.`,"Yes, I do."]],[a.name,"Which floor is your flat on?"],[b.name,[`It's on the ${ORD[b.floor]} floor.`,`It's in the ${ORD[b.floor]} floor.`,`It's the ${ORD[b.floor]}.`,"I live on floor."]],[a.name,["What's your address?","Where are you from?","What's your flat like?","How many floors are there?"]],[b.name,`It's ${b.num} ${b.street}.`],[a.name,"Is it near our school?"],[b.name,["Yes, it is. I walk to school every day.","Yes, I do. I walk to school.","No, it is. I walk to school.","Yes, it does."]],[a.name,["What's it like there?","Do you like it?","What does it like?","Where is it?"]],[b.name,"It's quiet and very nice."]]}),
+ (r,a,b)=>{const f=b.friend;return {t:"My pen friend",l:[[a.name,`Who's that ${f.sex==="m"?"boy":"girl"} in the photo, ${b.name}?`],[b.name,[`That's my pen friend, ${f.name}.`,"That's my photo.",`${f.he} is in the photo class.`,"Yes, it is."]],[a.name,`What nationality is ${f.he_}?`],[b.name,[`${f.he}'s ${f.nat}. ${f.he} lives in ${f.city}.`,`${f.he}'s from ${f.nat}.`,`${f.he}'s ${f.country}.`,`${f.he} lives ${f.city}.`]],[a.name,[`What's ${f.he_} like?`,`What does ${f.he_} like?`,`How is ${f.he_}?`,`What does ${f.he_} look like?`]],[b.name,`${f.he}'s ${f.traits[0]} and ${f.traits[1]}.`],[a.name,`What does ${f.he_} like doing in ${f.his_} free time?`],[b.name,[`${f.he} likes ${hiThird(f.hobs[0],f)}.`,`${f.he} like ${hiThird(f.hobs[0],f)}.`,`${f.he} likes ${hb(f.hobs[0])}.`,`${f.he}'d like to be ${art(f.job)}.`]],[a.name,[`How often do you write to ${f.him}?`,`When is ${f.his_} birthday?`,`Where does ${f.he_} live?`,"What do you write?"]],[b.name,`${cap(r.pick(["once a week","twice a month","once a month"]))}. We send emails on ${r.pick(["Saturdays","Sundays"])}.`]]}},
+ (r,a,b)=>{const [h1,h2,h3]=b.hobs;const sib=r.pick([["sister","f"],["brother","m"]]);const sp=pronOf(sib[1]);const rel=r.pick(["dad","mum","grandpa","grandma"]);return {t:"Free time",l:[[a.name,`What do you like doing in your free time, ${b.name}?`],[b.name,[`I like ${hi(h1)}.`,`I like ${hb(h1)}.`,`I'd like to ${hb(h1)}.`,"Yes, I like."]],[a.name,`How often do you ${hb(h1)}?`],[b.name,[cap(r.pick(["once a week","twice a week","three times a week"]))+".","At home.",`With my ${rel}.`,"It's fun."]],[a.name,["What do you do at the weekend?","Where do you live?",`What's your ${rel} like?`,"What would you like to be?"]],[b.name,`I usually ${hb(h2)} with my ${rel}.`],[a.name,`Does your ${sib[0]} like ${hi(h2)} too?`],[b.name,[`No, ${sp.he_} doesn't. ${sp.he} likes ${hiThird(h3,sp)}.`,`No, ${sp.he_} isn't. ${sp.he} likes ${hiThird(h3,sp)}.`,`No, ${sp.he_} don't.`,`Yes, ${sp.he_} like.`]],[a.name,[`Can I ${hb(h3)} with ${sp.him} some time?`,`Do you ${hb(h3)} every day?`,`Why does ${sp.he_} like it?`,`Where is your ${sib[0]}?`]],[b.name,`Sure! You can come on Sunday.`]]}},
+ (r,a,b)=>{const j=b.job,j2=b.parentJob;const rel=b.rel;const rp=pronOf(rel[1]);const T=r.pick(r()<.5?TEACHERS_M:TEACHERS_F);return {t:"Future jobs",l:[[T,`${b.name}, what would you like to be in the future?`],[b.name,[`I'd like to be ${art(j)}.`,`I like being ${art(j)}.`,`I'm ${art(j)}.`,`I'd like ${art(j)}.`]],[T,[`Why would you like to be ${art(j)}?`,`What does ${art(j)} do?`,"Where do you work?",`Do you like ${j[0]}s?`]],[b.name,`Because I'd like to ${j[2]}.`],[T,`What's your ${rel[0]}'s job?`],[b.name,[`${rp.he}'s ${art(j2)}.`,`${rp.he}'s ${b.traits[0]}.`,`${rp.he}'s from ${b.country}.`,`${rp.he}'d like ${art(j2)}.`]],[T,`Would you like to be ${art(j2)} too?`],[b.name,[`No, I wouldn't. I'd like to ${j[2]}.`,"No, I don't.",`Yes, ${rp.he_} is.`,"No, I'm not."]],[T,["Good luck with your dream!","What's your name?","How are you?","Where are you from?"]],[b.name,`Thank you, ${T}!`]]}},
+ (r,a,b)=>{const T=r()<.5?[r.pick(TEACHERS_M),"m"]:[r.pick(TEACHERS_F),"f"];const tp=pronOf(T[1]);const tr=r.pick(TRAITS);return {t:"At school",l:[[a.name,`What's your favourite subject, ${b.name}?`],[b.name,[`It's ${b.subject}.`,`It's on ${r.pick(DAYS).slice(0,-1)}.`,`I like ${b.colour}.`,"I'm good."]],[a.name,["Why do you like it?","When do you have it?","What's it like?","How often do you have it?"]],[b.name,"Because it's interesting and useful."],[a.name,`How often do you have ${b.subject}?`],[b.name,[cap(r.pick(["twice a week","three times a week","four times a week"]))+".","On the table.",`In Class ${b.cls}.`,"With my friends."]],[a.name,`Who's your ${b.subject} teacher?`],[b.name,[`It's ${T[0]}. ${tp.he}'s very ${tr}.`,`It's ${T[0]}. ${tp.he} likes ${tr}.`,`${T[0]} is my teacher's.`,`It's ${T[0]}'s.`]],[a.name,[`Where does ${tp.he_} live?`,`What does ${tp.he_} like?`,`What nationality is ${tp.he_}?`,`How old is ${tp.he_}?`]],[b.name,`${tp.he} lives near our school, on ${r.pick(STREETS)}.`]]}}
+];
+function genD(r,L,used){const out=[];let guard=0;const order=r.shuffle(DT.map((_,i)=>i));
+  for(const i of order){if(out.length>=3)break;let ok=false;for(let t=0;t<30&&!ok;t++){const nm=new Set();const a=persona(r,nm),b=persona(r,nm);a.friend=persona(r,nm);b.friend=persona(r,nm);
+    const d=DT[i](r,a,b);const key="D|"+d.l.map(x=>Array.isArray(x[1])?x[1][0]:x[1]).join(" ");if(used.has(key))continue;
+    if(d.l.some(x=>Array.isArray(x[1])&&new Set(x[1]).size!==4))continue;used.add(key);out.push(d);ok=true}}
+  return out}
+
+/* ---------- PART E: find the mistake ---------- */
+const ET=[
+ [1,(r,p)=>{const c=r.pick(CLASSES);return [`{I} {is} {in} {Class ${c}}.`,1,"am","I đi với am."]}],
+ [1,(r,p)=>{const k=r.pick(["colour","food","subject","sport","animal"]);return [`{What's} {you} {favourite} {${k}}?`,1,"your","Trước danh từ dùng your."]}],
+ [1,(r,p)=>{const s=r.pick(["We","They","My parents","My cousins"]);return [`{${s}} {lives} {in} {${r.pick(["a flat","a house","the countryside","a big city"])}}.`,1,"live",`${s} là số nhiều, dùng live.`]}],
+ [1,(r,p)=>{const h=r.pick(HOB.filter(x=>x[1]));return [`{${p.name}} {${h[0]}} {${h[1]}} {every day}.`,1,h[3],`${p.name} là ngôi thứ ba số ít, động từ thêm -s/-es.`]}],
+ [1,(r,p)=>[`{${p.name}} {live} {in} {${r.pick(PLACES)}}.`,1,"lives",`${p.name} là ngôi thứ ba số ít, dùng lives.`]],
+ [1,(r,p)=>[`{Where} {does} {${p.name}} {lives}?`,3,"live","Sau does dùng động từ nguyên mẫu."]],
+ [1,(r,p)=>{const h=r.pick(HOB.filter(x=>x[1]));return [`{${p.name}} {likes} {${h[0]}} {${h[1]}}.`,2,h[2],"like + V-ing."]}],
+ [1,(r,p)=>{const c=r.pick(COUNTRIES);return [`{${p.name}} {is} {from} {${c[1]}}.`,3,c[0],"Sau from là tên nước."]}],
+ [1,(r,p)=>{const j=r.pick(JOBS.filter(x=>x[1]==="an"));return [`{${p.name}'s} {${p.rel[0]}} {is} {a ${j[0]}}.`,3,"an "+j[0],`${j[0]} bắt đầu bằng nguyên âm: an.`]}],
+ [1,(r,p)=>[`{${p.name}} {lives} {in} {${r.int(2,150)} ${r.pick(STREETS)}}.`,2,"at","Địa chỉ có số nhà dùng at."]],
+ [2,(r,p)=>[`{${p.name}} {lives} {at} {${r.pick(STREETS)}}.`,2,"on","Tên đường không có số nhà dùng on."]],
+ [1,(r,p)=>{const j=r.pick(JOBS);return [`{${p.name}} {would like} {be} {${art(j)}}.`,2,"to be","would like + to + động từ."]}],
+ [2,(r,p)=>{const h=r.pick(HOB.filter(x=>x[1]));const f=r.pick(["often","usually","always","sometimes"]);return [`{${p.name}} {${h[3]}} {${f}} {${h[1]}}.`,2,`${f} ${h[3]}`,"Trạng từ tần suất đứng trước động từ thường."]}],
+ [2,(r,p)=>{const j=r.pick(JOBS);return [`{${p.he}'d} {likes} {to be} {${art(j)}}.`,1,"like","Sau would dùng like."]}],
+ [2,(r,p)=>{const s=r.pick(SUBJECTS);const wrong=p.sex==="m"?"Her":"His";return [`{${p.name}} {likes} ${s}. {${wrong}} favourite subject {is} ${s}.`,2,p.his,`${p.name} là ${p.sex==="m"?"bạn nam":"bạn nữ"}.`]}],
+ [2,(r,p)=>{const h=r.pick(HOB);return [`{Two times} {a week}, {${p.name}} {${h[3]}} ${h[1]}.`.replace(" .","."),0,"Twice","Hai lần dùng twice."]}],
+ [2,(r,p)=>{const h=r.pick(HOB);return [`{Do} {${p.name}} {often} {${h[0]}} ${h[1]}?`.replace(" ?","?"),0,"Does",`${p.name} là ngôi thứ ba số ít: Does.`]}],
+ [3,(r,p)=>{const j=r.pick(JOBS);const v=j[2].split(" ");return [`{Why} would ${p.name} {like} to be ${art(j)}? – {So} ${p.he_}'d like {to ${v[0]}} ${v.slice(1).join(" ")}.`,2,"Because","Trả lời câu hỏi Why bằng Because."]}],
+ [3,(r,p)=>[`{Doesn't} {your parents} {live} {in} ${r.pick(PLACES)}?`,0,"Don't","your parents là số nhiều: Don't."]],
+ [3,(r,p)=>{const h=r.pick(HOB);return [`{${p.name}} {doesn't} {likes} {${hi(h)}}.`,2,"like","Sau doesn't dùng động từ nguyên mẫu."]}],
+ [3,(r,p)=>{const q=persona(r);return [`{Is} {${p.name} and ${q.name}} {your} {classmates}?`,0,"Are","Hai người là số nhiều: Are."]}],
+ [3,(r,p)=>{const t=r.pick(Object.keys(TRAIT_BAD));return [`{What's} ${p.he_} {like}? – ${p.he} {is} {${TRAIT_BAD[t]}}.`,3,t,"Sau to be dùng tính từ."]}],
+ [4,(r,p)=>{const adj=r.pick(["busy","late for school","tired","happy"]);const a=r.pick(["usually","always","never","often"]);return [`{${p.he}} {${a} is} {${adj}} {at} the weekend.`,1,`is ${a}`,"Trạng từ tần suất đứng sau to be."]}],
+ [4,(r,p)=>{const a=r.pick(HOB),b=r.pick(HOB.filter(h=>h!==a));return [`{${p.he}} {likes} {${hi(a)}} and {${hb(b)}}.`,3,hi(b),"Hai hoạt động sau like cùng dạng V-ing."]}],
+ [4,(r,p)=>[`{Does} ${p.name}'s ${p.rel[0]} work at a hospital? – {Yes}, {${pronOf(p.rel[1]).he_}} {is}.`,3,"does","Câu hỏi Does… trả lời Yes, … does."]],
+ [4,(r,p)=>[`{What} {nationality} {does} {${p.name}}? – ${p.he}'s ${p.nat}.`,2,"is",`What nationality is ${p.name}?`]],
+ [4,(r,p)=>[`{${p.his}} {flat} {is} {in} the ${ORD[r.int(2,20)]} floor.`,3,"on","Tầng nhà dùng on."]]
+];
+function genE(r,L0,used){const OUT=[];for(let L=L0;L<=4&&OUT.length<10;L++){const part=(genE_(r,L,used,10-OUT.length,L0));OUT.push(...part)}return OUT}
+function genE_(r,L,used,NEED,L0){const pool=ET.filter(t=>t[0]<=L);const out=[];const fails=pool.map(()=>0);const done=new Set();let guard=0;
+  while(out.length<NEED&&guard++<4000){const live=pool.map((_,i)=>i).filter(i=>fails[i]<40);if(!live.length)break;
+    let cand=live.filter(i=>!done.has(i));if(!cand.length)cand=live;
+    if(L>=3){const hard=cand.filter(i=>pool[i][0]>=L-1);if(hard.length&&r()<.6)cand=hard}
+    const idx=r.pick(cand);const it=pool[idx][1](r,persona(r));const key="E|"+it[0];
+    if((it[0].match(/\{/g)||[]).length!==4||used.has(key)){fails[idx]++;continue}
+    used.add(key);done.add(idx);out.push(it)}
+  return out}
+
+/* ---------- PART C: cloze ---------- */
+function genC(r,L,used){
+  for(let tries=0;tries<50;tries++){
+    const p=persona(r);const f=persona(r);const j=p.job;const v=j[2].split(" ");const h1=p.hobs[0],h2=p.hobs[1];const fr=r.pick(["often","usually","always","sometimes"]);const tw=r.pick(["once","twice"]);
+    const S=[];const add=(txt,ans,wrong)=>S.push({txt,ans,wrong});
+    S.push({fixed:`My name is ${p.name} and I'm ${p.age} years old.`});
+    add(`I'm (_) ${p.country}, so I'm ${p.nat}.`,"from",["for","at","of"]);
+    add(`My family and I live (_) ${p.flat?"a flat":"a house"} in ${p.vnCity}.`,"in",["on","at","to"]);
+    if(p.flat)add(`Our flat is (_) the ${ORD[p.floor]} floor of ${p.tower}.`,"on",["in","at","of"]);else add(`Our house is (_) a big park.`,"near",["next","nearly","on"]);
+    add(`My (_) is ${p.num} ${p.street}.`,"address",["name","phone","class"]);
+    add(`My best friend is ${f.name}, a ${f.sex==="m"?"boy":"girl"} in my class. (_) favourite subject is ${f.subject}.`,f.his,[f.he,f.his==="His"?"Her":"His","Their"]);
+    add(`${f.he} is very (_) and always helps me with my homework.`,"helpful",["help","helps","helping"]);
+    add(`In my free time, I like (_) ${h1[1]}.`.replace(" .","."),h1[2],[h1[0],h1[3],"to "+h1[2]]);
+    add(`I (_) ${hb(h2)} because I don't like it.`,"never",["always","usually","often"]);
+    add(`I go swimming (_) a week, on ${tw==="once"?"Sundays":"Mondays and Fridays"}.`,tw,tw==="once"?["one","first","a"]:["two","second","double"]);
+    add(`My ${p.rel[0]} is (_) ${p.parentJob[0]}.`,p.parentJob[1],[p.parentJob[1]==="a"?"an":"a","the","one"]);
+    add(`In the future, I'd like (_) ${art(j)}`,"to be",["be","being","is"]);
+    S.push({fixed2:true,txt:`because I'd like to (_) ${v.slice(1).join(" ")}.`.replace(" .","."),ans:v[0],wrong:[j[3].split(" ")[0],"to "+v[0],"be"]});
+    const blanks=S.filter(s=>s.ans);const chosen=new Set(r.pickN(blanks,10));
+    const answers=[...chosen].map(s=>s.ans);if(new Set(answers).size!==10)continue;
+    let k=0;const opts=[];const ans=[];
+    const text=S.map(s=>{if(s.fixed)return s.fixed;if(!chosen.has(s))return s.txt.replace("(_)",s.ans);k++;ans.push(s.ans);opts.push([s.ans,...s.wrong]);return s.txt.replace("(_)",`(${k})`)}).join(" ").replace(/ because/," because");
+    const key="C|"+text;if(used.has(key))continue;used.add(key);
+    const t=`About me: ${p.name}`;
+    if(L<=2)return {t,box:true,text,ans};
+    if(L===3){const ex=r.pickN(blanks.filter(s=>chosen.has(s)),2).map(s=>s.wrong[0]).filter(w=>!ans.includes(w));return {t,box:true,extra:uniq(ex),text,ans}}
+    return {t,box:false,text,opts};
+  }
+}
+
+/* ---------- PART R: reading ---------- */
+function genR(r,L,used){
+  for(let tries=0;tries<50;tries++){
+    const nm=new Set();const p=persona(r,nm),f=persona(r,nm);const dad=p.parentJob,mum=p.job3,j=p.job;if(dad[0]===mum[0]||j[0]===dad[0]||j[0]===mum[0])continue;
+    const ndays=L>=4?3:2;const ds=r.pickN(DAYS,ndays);const h=p.hobs[1],hf=p.hobs[0];
+    const text=`${p.name} is ${p.age} years old. ${p.he} is from ${p.country}, so ${p.he_} is ${p.nat}. Now ${p.he_} lives with ${p.his_} family in ${p.flat?"a flat":"a house"} in ${p.vnCity}. ${p.flat?`Their flat is on the ${ORD[p.floor]} floor of ${p.tower}.`:"Their house is near a big park."} The address is ${p.num} ${p.street}.\n${p.name}'s father is ${art(dad)}. He ${dad[3]}. ${p.his} mother is ${art(mum)}. She ${mum[3]}.\n${p.his} best friend is ${f.name}. ${f.he} is ${f.traits[0]} and ${f.traits[1]}. In their free time, they often ${hb(hf)}. ${p.name} also ${hsThird(h,p)} on ${dayList(ds)}.\nIn the future, ${p.name} would like to be ${art(j)} because ${p.he_}'d like to ${j[2]}.`;
+    const key="R|"+text;if(used.has(key))continue;used.add(key);
+    const oc=others(r,COUNTRIES,[COUNTRIES.find(c=>c[1]===p.nat)],2);const ot=others(r,TRAITS,f.traits,4);const oj=others(r,JOBS,[dad,mum,j],3);
+    const freqAns=ndays===2?"twice a week":"three times a week";
+    const Q={
+     age:{q:`How old is ${p.name}?`,o:[`${p.age} years old`,`${p.age===10?11:10} years old`,`${p.age+2} years old`],kw:[p.age===10?"\\bten\\b|\\b10\\b":"eleven|\\b11\\b"],m:`${p.he}'s ${p.age} years old.`},
+     nat:{q:`${p.name} is ___.`,o:[p.nat,oc[0][1],oc[1][1]]},
+     home:{q:`Where does ${p.name}'s family live?`,o:[`in ${p.flat?"a flat":"a house"} in ${p.vnCity}`,`in ${p.flat?"a house":"a flat"} in ${p.vnCity}`,`in ${p.city}`],kw:[p.vnCity.toLowerCase().replace(" ","\\s*")],m:`They live in ${p.flat?"a flat":"a house"} in ${p.vnCity}.`},
+     dad:{q:`What is ${p.name}'s father's job?`,o:[dad[0],mum[0],oj[0][0]],kw:[dad[0]],m:`He's ${art(dad)}.`},
+     who:{q:`Who ${mum[3]}?`,o:[`${p.name}'s mother`,`${p.name}'s father`,`${p.name}'s best friend`]},
+     friend:{q:`What is ${f.name} like?`,o:[`${f.traits[0]} and ${f.traits[1]}`,`${ot[0]} and ${ot[1]}`,`${ot[2]} and ${ot[3]}`]},
+     hob:{q:`What do ${p.name} and ${f.name} often do?`,o:[hb(hf),hb(p.hobs[2]),hb(HOB.find(x=>![hf,h,p.hobs[2]].includes(x)))]},
+     freq:{q:`How often does ${p.name} ${hb(h)}?`,o:[freqAns,ndays===2?"three times a week":"twice a week","every day"],kw:[ndays===2?"twice|two times":"three times"],m:`${cap(freqAns)}.`},
+     job:{q:`What would ${p.name} like to be?`,o:[art(j),art(dad),art(oj[1])],kw:[j[0]],m:`${p.he}'d like to be ${art(j)}.`},
+     why:{q:`Why would ${p.name} like to be ${art(j)}?`,o:[`Because ${p.he_}'d like to ${j[2]}.`,`Because ${p.his_} father is ${art(j)}.`,`Because ${p.he_}'d like to ${oj[2][2]}.`],kw:[j[2].split(" ")[0]],m:`Because ${p.he_}'d like to ${j[2]}.`}
+    };
+    const tfs=[[`${p.name}'s father ${mum[3]}.`,false],[`${p.name}'s mother ${mum[3]}.`,true],[`${f.name} is ${f.traits[1]}.`,true],[`${p.name} ${hsThird(h,p)} every day.`,false],[`${p.name}'s family lives in ${p.city}.`,false],[`${p.name} lives in ${p.flat?"a house":"a flat"}.`,false]];
+    let qs=[];
+    if(L===1){qs=r.pickN(tfs,5).map(t=>({q:t[0],tf:t[1]})).concat(["age","nat","friend","hob","job"].map(k=>({q:Q[k].q,o:Q[k].o})))}
+    else if(L===2){qs=["age","nat","home","dad","who","friend","hob","freq","job","why"].map(k=>({q:Q[k].q,o:Q[k].o}))}
+    else{const mc=L===3?["nat","who","friend","hob","home","dad"]:["nat","who","friend","hob","freq","why"];const sa=L===3?["age","freq","job","why"]:["age","home","dad","job"];
+      qs=mc.map(k=>({q:Q[k].q,o:Q[k].o})).concat(sa.map(k=>({q:Q[k].q,kw:Q[k].kw,m:Q[k].m})))}
+    if(qs.some(q=>q.o&&new Set(q.o).size!==q.o.length))continue;
+    return {t:`${p.name}'s family`,text,q:qs};
+  }
+}
+
+/* ---------- PART O: reorder ---------- */
+const OT=[
+ [1,(r,p)=>`I live in ${r.pick(PLACES)}.`],[1,(r,p)=>`${p.name} is from ${p.country}.`],[1,(r,p)=>`My best friend is very ${p.traits[0]}.`],[1,(r,p)=>`Do you live in this ${r.pick(["flat","house","tower"])}?`],
+ [1,(r,p)=>`I like ${hi(p.hobs[0])}.`],[1,(r,p)=>`${p.he} often ${hsThird(p.hobs[0],p)}.`],[1,(r,p)=>`I'd like to be ${art(p.job)}.`],[1,(r,p)=>`What's ${p.his_} address?`],[1,(r,p)=>`My ${p.rel[0]} is ${art(p.parentJob)}.`],[1,(r,p)=>`What's your favourite ${r.pick(["colour","food","subject","sport"])}?`],
+ [2,(r,p)=>`My grandparents live in a house in ${r.pick(["the countryside","a village","a small town"])}.`],[2,(r,p)=>`What does your ${r.pick(["sister","brother","cousin"])} like doing in the evening?`],[2,(r,p)=>`They ${r.pick(["always","usually","often","sometimes"])} ${hb(p.hobs[0])} at the weekend.`],
+ [2,(r,p)=>`Why would you like to be ${art(p.job)}?`],[2,(r,p)=>`${p.he} lives on the ${ORD[p.floor]} floor of ${p.tower}.`],[2,(r,p)=>`What nationality is your new ${r.pick(["friend","classmate","teacher"])}?`],[2,(r,p)=>`Because I'd like to ${p.job[2]}.`],[2,(r,p)=>`Do you ${r.pick(["often","usually","always"])} ${hb(p.hobs[1])} after school?`],
+ [3,(r,p)=>`My best friend lives at ${p.num} ${p.street}.`],[3,(r,p)=>`How often does your ${p.rel[0]} ${hb(p.hobs[0])}?`],[3,(r,p)=>`${p.he} is always ${p.traits[0]} at school.`],[3,(r,p)=>`We sometimes ${hb(p.hobs[0])} after dinner.`],
+ [3,(r,p)=>`Why would your ${p.rel[0]} like to be ${art(p.job)}?`],[3,(r,p)=>`${p.name} would like to be ${art(p.job)} because ${p.he_} likes ${hiThird(p.hobs[2],p)}.`],[3,(r,p)=>`Do your ${r.pick(["grandparents","cousins","parents"])} live in ${r.pick(["the countryside","a big city","Ha Noi"])}?`],
+ [4,(r,p)=>`My ${p.rel[0]} ${r.pick(["usually","always","often"])} ${hsThird(p.hobs[0],pronOf(p.rel[1]))} before breakfast.`],[4,(r,p)=>`Our flat is on the ${ORD[p.floor]} floor of a tall building in ${p.vnCity}.`],[4,(r,p)=>`What is your new ${p.nat} classmate like?`],[4,(r,p)=>`They never go shopping at the weekend because they are ${r.pick(["busy","tired"])}.`],[4,(r,p)=>`In my free time, I like ${hi(p.hobs[1])} with my ${r.pick(["sister","brother","cousin"])}.`],[4,(r,p)=>`Why would your ${r.pick(["brother","sister","cousin"])} like to be ${art(p.job)} in the future?`]
+];
+function genO(r,L0,used){const OUT=[];for(let L=L0;L<=4&&OUT.length<10;L++){const part=(genO_(r,L,used,10-OUT.length,L0));OUT.push(...part)}return OUT}
+function genO_(r,L,used,NEED,L0){const pool=OT.map((t,i)=>[t,i]).filter(x=>x[0][0]<=L&&x[0][0]>=Math.max(1,L-1));const cnt={},fails={};const out=[];let guard=0;
+  while(out.length<NEED&&guard++<4000){let cand=pool.filter(x=>!cnt[x[1]]&&(fails[x[1]]||0)<40);if(!cand.length)cand=pool.filter(x=>(cnt[x[1]]||0)<2&&(fails[x[1]]||0)<40);if(!cand.length)break;
+    const [t,i]=r.pick(cand);const s=t[1](r,persona(r)).replace(/\s+/g," ");const w=s.split(" ");const key="O|"+s;
+    if(w.length<4||used.has(key)){fails[i]=(fails[i]||0)+1;continue}
+    used.add(key);cnt[i]=(cnt[i]||0)+1;out.push(s)}
+  return out}
+
+/* ---------- public ---------- */
+const LV=[null,{lv:"Dễ",tag:"Nhận biết",color:"read"},{lv:"Vừa",tag:"Thông hiểu",color:"listen"},{lv:"Khó",tag:"Vận dụng",color:"speak"},{lv:"Siêu khó",tag:"Vận dụng cao",color:"write"}];
+function keysOf(E){const k=[];E.L.forEach(x=>k.push("L|"+x.a.map(a=>a[1]).join(" ")));E.S.forEach(s=>k.push("S|"+s.split(" ").map(w=>w.split("|")[0].replace(/·/g,"")).sort().join(" ")));
+  E.G.forEach(g=>k.push("G|"+g[0]+"|"+g[1][0]));E.D.forEach(d=>k.push("D|"+d.l.map(x=>Array.isArray(x[1])?x[1][0]:x[1]).join(" ")));E.E.forEach(e=>k.push("E|"+e[0]));
+  k.push("C|"+E.C.text);k.push("R|"+E.R.text);E.O.forEach(o=>k.push("O|"+o));return k}
+function make(n,L,used){const r=RNG("gk1-gen-"+n+"-"+L);
+  const E=Object.assign({id:"g"+n,num:n,gen:true,desc:"Đề tạo tự động từ ngân hàng câu hỏi Unit 1–5. Không trùng câu với các đề trước."},LV[L]);
+  E.L=genL(r,L,used);E.S=genS(r,L,used);E.G=genG(r,L,used);E.D=genD(r,L,used);E.E=genE(r,L,used);E.C=genC(r,L,used);E.R=genR(r,L,used);E.O=genO(r,L,used);return E}
+return {make,keysOf,RNG};
+})();
+
+</script>
+<script>
+(function(){
+"use strict";
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const LET="ABCD";
+const IC={play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5v14l12-7z"/></svg>'};
+function hash(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function rng(seed){let a=hash(seed);return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function order(n,seed){const r=rng(seed),a=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const P=s=>{const [w,i]=s.split("|");const syl=w.split("·");return {syl,idx:+i,word:syl.join("")}};
+const sw=s=>{const p=P(s);return `<span class="sw">${p.syl.map((x,i)=>i===p.idx?`<em>${esc(x)}</em>`:esc(x)).join("·")}</span>`};
+const ORD=["thứ nhất","thứ hai","thứ ba","thứ tư"];
+const norm=s=>String(s).toLowerCase().replace(/[’‘]/g,"'").replace(/\s+/g," ").trim();
+
+/* ---- state ---- */
+const KEY="ta5-gk1";
+let S={cur:"de1",t:{}};
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+S.gen=S.gen||[];
+const USED=new Set();EXAMS.forEach(E=>GEN.keysOf(E).forEach(k=>USED.add(k)));
+const GENS=[];S.gen.forEach((L,i)=>GENS.push(GEN.make(5+i,L,USED)));
+const ALL=()=>EXAMS.concat(GENS);
+const getE=id=>ALL().find(e=>e.id===id)||EXAMS[0];
+const numOf=E=>E.num||EXAMS.indexOf(E)+1;
+const T=id=>S.t[id]||(S.t[id]={a:{},plays:{},done:false,start:null,score:null,name:"",cls:""});
+
+/* ---- speech ---- */
+const TTS=("speechSynthesis" in window)?speechSynthesis:null;let VO=[];
+function loadV(){if(TTS)VO=TTS.getVoices().filter(v=>/^en/i.test(v.lang))}
+function voice(i){const p=VO.filter(v=>/en-(GB|US)/i.test(v.lang));const l=p.length?p:VO;return l[i%Math.max(1,l.length)]||null}
+function say(t,slot){return new Promise(res=>{if(!TTS)return res();const u=new SpeechSynthesisUtterance(t);const v=voice(slot);if(v){u.voice=v;u.lang=v.lang}else u.lang="en-US";u.rate=.88;u.pitch=slot?1.15:1;u.onend=res;u.onerror=res;TTS.speak(u)})}
+async function playLines(lines){if(TTS)TTS.cancel();const names=[...new Set(lines.map(l=>l[0]))];for(const [w,t] of lines){await say(t,names.indexOf(w)%2);await new Promise(r=>setTimeout(r,300))}}
+
+/* ---- build items with ids, numbers, answers ---- */
+function build(E){
+  const parts=[];let n=0;const sid=E.id;
+  const mk=(k,title,en,items)=>{parts.push({k,title,en,items});return items};
+  mk("L","Phần 1. Nghe và chọn đáp án đúng","Listen and choose the correct answer.",E.L.map((x,i)=>({id:"L"+i,n:++n,type:"mc",q:x.q,opts:x.o,ans:x.k,audio:x.a})));
+  mk("S","Phần 2. Chọn từ có trọng âm khác với các từ còn lại","Choose the word that has a different stress pattern.",E.S.map((s,i)=>{
+    const ws=s.split(" ");const ps=ws.map(P);const cnt={};ps.forEach(p=>cnt[p.idx]=(cnt[p.idx]||0)+1);const odd=ps.findIndex(p=>cnt[p.idx]===1);
+    const ord=order(4,sid+"S"+i);const rest=ps.find((p,j)=>j!==odd);
+    return {id:"S"+i,n:++n,type:"mc",q:"",opts:ord.map(j=>ps[j].word),ans:ord.indexOf(odd),
+      ex:ord.map(j=>sw(ws[j])).join(" · ")+`. Từ <b>${esc(ps[odd].word)}</b> nhấn âm ${ORD[ps[odd].idx]}, ba từ còn lại nhấn âm ${ORD[rest.idx]}.`}}));
+  mk("G","Phần 3. Từ vựng và ngữ pháp: chọn đáp án đúng","Choose the correct answer A, B, C or D.",E.G.map((g,i)=>{const ord=order(g[1].length,sid+"G"+i);return {id:"G"+i,n:++n,type:"mc",q:g[0],opts:ord.map(j=>g[1][j]),ans:ord.indexOf(0),ex:esc(g[2])}}));
+  const dItems=[];E.D.forEach((d,di)=>d.l.forEach((ln,li)=>{if(Array.isArray(ln[1])){const ord=order(4,sid+"D"+di+"-"+li);dItems.push({id:`D${di}-${li}`,n:++n,type:"mc",opts:ord.map(j=>ln[1][j]),ans:ord.indexOf(0),dlg:di,line:li})}}));
+  mk("D","Phần 4. Hoàn thành đoạn hội thoại","Choose the best answer to complete the dialogues.",dItems);
+  mk("E","Phần 5. Tìm lỗi sai trong câu","Find the mistake (A, B, C or D).",E.E.map((e,i)=>({id:"E"+i,n:++n,type:"mc",sent:e[0],opts:["A","B","C","D"],letters:true,ans:e[1],ex:`Sửa: <b>${esc(e[2])}</b>. ${esc(e[3])}`})));
+  const C=E.C;const cItems=C.ans?C.ans.map((a,i)=>({id:"C"+i,n:++n,type:"sel",ans:a})):C.opts.map((o,i)=>{const ord=order(4,sid+"C"+i);return {id:"C"+i,n:++n,type:"sel",opts:ord.map(j=>o[j]),ans:o[0]}});
+  mk("C","Phần 6. Điền từ để hoàn thành đoạn văn",C.box?"Fill in each blank with a word from the box.":"Choose the correct word for each blank.",cItems);
+  mk("R","Phần 7. Đọc đoạn văn và trả lời câu hỏi","Read the passage and answer the questions.",E.R.q.map((q,i)=>{
+    if(q.tf!==undefined)return {id:"R"+i,n:++n,type:"mc",q:q.q,opts:["True","False"],ans:q.tf?0:1};
+    if(q.kw)return {id:"R"+i,n:++n,type:"txt",q:q.q,kw:q.kw,model:q.m};
+    const ord=order(q.o.length,sid+"R"+i);return {id:"R"+i,n:++n,type:"mc",q:q.q,opts:ord.map(j=>q.o[j]),ans:ord.indexOf(0)}}));
+  mk("O","Phần 8. Sắp xếp các từ thành câu hoàn chỉnh","Put the words in the correct order.",E.O.map((s0,i)=>{const alts=s0.split("||");const s=alts[0];const w=s.split(" ");let ord=order(w.length,sid+"O"+i);if(ord.every((v,j)=>v===j))ord=ord.reverse();return {id:"O"+i,n:++n,type:"ro",ans:s,alts,chips:ord.map(j=>w[j])}}));
+  return parts;
+}
+const BUILT={};const B=id=>BUILT[id]||(BUILT[id]=build(getE(id)));
+
+/* ---- grading ---- */
+function correct(it,v){
+  if(v===undefined||v===null||v==="")return false;
+  if(it.type==="mc")return +v===it.ans;
+  if(it.type==="sel")return v===it.ans;
+  if(it.type==="txt")return it.kw.every(k=>new RegExp(k,"i").test(v));
+  if(it.type==="ro")return it.alts.includes(v);
+}
+function grade(id){const t=T(id);const res=B(id).map(p=>({k:p.k,title:p.title,total:p.items.length,got:p.items.filter(it=>correct(it,t.a[it.id])).length}));const got=res.reduce((s,r)=>s+r.got,0);return {res,got}}
+const answered=id=>{const t=T(id);return B(id).flatMap(p=>p.items).filter(it=>{const v=t.a[it.id];return v!==undefined&&v!==""}).length};
+
+/* ---- rendering ---- */
+function optsHTML(it,t,done,col){
+  const v=t.a[it.id];
+  return `<div class="opts${col?" col":""}">${it.opts.map((o,j)=>{let c="";if(done){if(j===it.ans)c="right";else if(+v===j&&v!==undefined)c="wrong"}else if(v!==undefined&&+v===j)c="sel";
+    return `<button class="opt ${c}" data-q="${it.id}" data-v="${j}">${it.letters?`<span style="min-width:1.6em;text-align:center;font-weight:700">${LET[j]}</span>`:`<i>${LET[j]}.</i><span>${esc(o)}</span>`}</button>`}).join("")}</div>`;
+}
+function mark(it,t,done){if(!done)return "";const ok=correct(it,t.a[it.id]);return `<span class="mark ${ok?"ok":"no"}">${ok?"✓":"✗"}</span>`}
+function qBlock(it,inner){return `<div class="q" id="q-${it.id}"><span class="n">${it.n}.</span><div class="body">${inner}</div></div>`}
+function renderPart(E,p,t,done,gr){
+  const head=`<div class="ph"><h2>${p.title}</h2><span class="en">${p.en}</span><span class="pts">${p.items.length} câu · ${(p.items.length/10).toLocaleString("vi-VN")} điểm${done?` · <span class="got">${gr.res.find(r=>r.k===p.k).got}/${p.items.length}</span>`:""}</span></div>`;
+  let body="";
+  if(p.k==="L") body=p.items.map(it=>{const pl=t.plays[it.id]||0;const left=done?"":` <span class="plays">Còn ${Math.max(0,2-pl)} lượt nghe</span>`;
+    return qBlock(it,`<div class="row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="btn l" data-play="${it.id}" ${!done&&pl>=2?"disabled":""}>${IC.play}Nghe</button>${left}<span>${esc(it.q)}</span>${mark(it,t,done)}</div>${optsHTML(it,t,done)}${done?`<div class="ex">Lời thoại: ${it.audio.map(l=>`<b>${esc(l[0])}:</b> ${esc(l[1])}`).join(" ")}</div>`:""}`)}).join("");
+  if(p.k==="S"||p.k==="G") body=p.items.map(it=>qBlock(it,`${it.q?`<div>${esc(it.q)} ${mark(it,t,done)}</div>`:(done?mark(it,t,done):"")}${optsHTML(it,t,done,p.k==="G"&&it.opts.some(o=>o.length>34))}${done&&it.ex?`<div class="ex">${it.ex}</div>`:""}`)).join("");
+  if(p.k==="D") body=E.D.map((d,di)=>`<div class="dlg"><h3>Dialogue ${di+1}. ${esc(d.t)}</h3>${d.l.map((ln,li)=>{
+      if(!Array.isArray(ln[1]))return `<div class="ln"><span class="who">${esc(ln[0])}:</span><span>${esc(ln[1])}</span></div>`;
+      const it=p.items.find(x=>x.dlg===di&&x.line===li);
+      return `<div class="ln"><span class="who">${esc(ln[0])}:</span><div class="body" style="display:flex;flex-direction:column;gap:6px"><span class="blank">(${it.n}) ____________ ${mark(it,t,done)}</span>${optsHTML(it,t,done,true)}</div></div>`}).join("")}</div>`).join("");
+  if(p.k==="E") body=p.items.map(it=>{let k=0;const s=esc(it.sent).replace(/\{([^}]+)\}/g,(m,x)=>`<span class="ep"><u>${x}</u><small>${LET[k++]}</small></span>`);
+    return qBlock(it,`<div class="es">${s} ${mark(it,t,done)}</div>${optsHTML(it,t,done)}${done?`<div class="ex">${it.ex}</div>`:""}`)}).join("");
+  if(p.k==="C"){const C=E.C;let i=0;
+    const words=C.box?[...C.ans,...(C.extra||[])].sort((a,b)=>a.localeCompare(b)):null;
+    const txt=esc(C.text).replace(/\((\d+)\)/g,()=>{const it=p.items[i++];const v=t.a[it.id]||"";const ops=words||it.opts;const ok=done?(v===it.ans?"ok":"no"):"";
+      return `<b>(${it.n})</b> <select id="sel-${it.id}" data-q="${it.id}" class="${ok}" aria-label="Chỗ trống ${it.n}"><option value="">……</option>${ops.map(o=>`<option${o===v?" selected":""}>${esc(o)}</option>`).join("")}</select>${done&&v!==it.ans?` <span class="fix">→ ${esc(it.ans)}</span>`:""}`});
+    body=`<h3>${esc(C.t)}</h3>${words?`<div class="box">${words.map(w=>`<span>${esc(w)}</span>`).join("")}</div>${C.extra?`<p class="note">Trong khung có ${C.extra.length} từ thừa.</p>`:""}`:""}<div class="passage">${txt}</div>`}
+  if(p.k==="R") body=`<h3>${esc(E.R.t)}</h3><div class="reading">${esc(E.R.text)}</div>`+p.items.map(it=>{
+    if(it.type==="txt"){const v=t.a[it.id]||"";const ok=done?(correct(it,v)?"ok":"no"):"";return qBlock(it,`<div>${esc(it.q)} ${mark(it,t,done)}</div><input class="txt ${ok}" id="txt-${it.id}" data-q="${it.id}" value="${esc(v)}" placeholder="Viết câu trả lời bằng tiếng Anh…" autocomplete="off">${done?`<div class="ex">Gợi ý trả lời: <b>${esc(it.model)}</b></div>`:""}`)}
+    return qBlock(it,`<div>${esc(it.q)} ${mark(it,t,done)}</div>${optsHTML(it,t,done)}`)}).join("");
+  if(p.k==="O") body=p.items.map(it=>{const v=t.a[it.id];const used=v?v.split(" "):[];const pool=it.chips.slice();used.forEach(w=>{const k=pool.indexOf(w);if(k>=0)pool.splice(k,1)});
+    const ok=done?(correct(it,v)?"ok":"no"):"";
+    return qBlock(it,`<div class="line ${ok}" data-line="${it.id}">${used.map(w=>`<button class="chip" data-chip="${it.id}" data-in="1">${esc(w)}</button>`).join("")}</div><div class="pool" data-pool="${it.id}">${pool.map(w=>`<button class="chip" data-chip="${it.id}">${esc(w)}</button>`).join("")}</div>${done?`<div class="ex">${mark(it,t,done)} Đáp án: <b>${esc(it.ans)}</b></div>`:""}`)}).join("");
+  return `<section class="part" id="part-${p.k}">${head}${body}</section>`;
+}
+function resultHTML(id,gr){
+  const s=(gr.got/10);const msg=s>=9?"Xuất sắc!":s>=8?"Giỏi lắm!":s>=6.5?"Khá. Xem lại các câu sai nhé.":s>=5?"Đạt. Cần ôn thêm các phần điểm thấp.":"Chưa đạt. Ôn lại bài rồi làm lại đề nhé.";
+  return `<div class="result"><div style="display:flex;gap:14px;align-items:baseline;flex-wrap:wrap"><span class="big">${s.toLocaleString("vi-VN")}</span><span>/ 10 điểm · ${gr.got}/100 câu đúng · ${msg}</span></div>
+   <table class="rt"><tbody>${gr.res.map(r=>`<tr><td>${esc(r.title.replace(/:.*/,""))}</td><td class="barc"><div class="mini"><i style="width:${r.got/r.total*100}%"></i></div></td><td>${r.got}/${r.total}</td></tr>`).join("")}</tbody></table>
+   <p style="font-size:.88rem">Câu đúng có dấu ✓, câu sai có dấu ✗ kèm đáp án và giải thích ngay dưới câu.</p></div>`;
+}
+let tick=null;
+function render(){
+  if(!ALL().some(e=>e.id===S.cur))S.cur="de1";const id=S.cur,E=getE(id),t=T(id),done=t.done,gr=done?grade(id):null;
+  $("#levels").innerHTML=EXAMS.map((e,i)=>{const tt=S.t[e.id];return `<button class="lv${e.id===id?" on":""}" data-c="${e.color}" data-lv="${e.id}"><b>Đề ${i+1} · ${e.lv}</b><span>${esc(e.tag)}</span>${tt&&tt.done?`<span class="sc">Đã làm: ${(tt.score/10).toLocaleString("vi-VN")} điểm</span>`:`<span>100 câu · 60 phút</span>`}</button>`}).join("");
+  const parts=B(id);const idx=numOf(E);
+  $("#genrow").innerHTML=`${GENS.length?`<span class="lbl">Đề đã tạo:</span>${GENS.map(g=>{const tt=S.t[g.id];return `<button class="gchip${g.id===id?" on":""}" data-lv="${g.id}"><span class="d ${g.color}"></span><b>Đề ${g.num}</b> ${esc(g.lv)}${tt&&tt.done?` · ${(tt.score/10).toLocaleString("vi-VN")}đ`:""}</button>`}).join("")}`:""}
+   <span class="lbl" style="margin-left:${GENS.length?"8px":"0"}">Tạo đề mới:</span>${[1,2,3,4].map(L=>`<button class="newbtn" data-new="${L}">+ ${["","Dễ","Vừa","Khó","Siêu khó"][L]}</button>`).join("")}`;
+  $("#paper").innerHTML=`<div class="paper${done?" done":""}">
+    <div class="phead"><div><div class="crumb">ĐỀ KIỂM TRA GIỮA HỌC KÌ 1 · MÔN TIẾNG ANH 5</div><h1 style="font-size:1.5rem">Đề ${idx}: Mức ${esc(E.lv)}</h1><p class="meta">${esc(E.desc)}</p></div>
+      <div class="meta" style="text-align:right">Thời gian: 60 phút<br>100 câu · mỗi câu 0,1 điểm</div>
+      <div class="who" style="grid-column:1/-1"><label for="nm">Họ và tên: <input id="nm" data-who="name" value="${esc(t.name)}"></label><label for="cl">Lớp: <input id="cl" data-who="cls" value="${esc(t.cls)}" style="min-width:60px"></label></div></div>
+    ${done?resultHTML(id,gr):`<div class="note noprint"><b>Cách làm bài.</b> Bấm <b>Bắt đầu tính giờ</b> nếu muốn làm như thi thật. Phần nghe: bấm Nghe, mỗi câu nghe được 2 lần. Phần sắp xếp câu: bấm lần lượt các từ, bấm lại một từ để trả nó về. Làm xong bấm <b>Nộp bài</b> để chấm điểm.</div>`}
+    ${parts.map(p=>renderPart(E,p,t,done,gr)).join("")}
+    <div class="noprint" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${done?`<button class="btn pri" data-reset="1">Làm lại đề này</button>`:`<button class="btn pri" data-submit="1">Nộp bài</button>`}</div>
+  </div>`;
+  renderBar();
+}
+function renderBar(){
+  const id=S.cur,t=T(id);const n=answered(id);
+  let timer="";if(t.start&&!t.done){const left=Math.max(0,60*60*1000-(Date.now()-t.start));const m=Math.floor(left/60000),s=Math.floor(left%60000/1000);timer=`<span class="timer${left<5*60000?" low":""}">${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}</span>`;
+    if(left<=0){submit(true);return}}
+  const canPrint=location.protocol==="file:";
+  $("#bar").innerHTML=t.done?`<span><b>Đã nộp bài.</b> ${(t.score/10).toLocaleString("vi-VN")} / 10 điểm</span><span class="grow"></span>${canPrint?'<button class="btn" data-print="1">In đề</button>':""}<button class="btn pri" data-reset="1">Làm lại</button>`
+   :`${timer||'<button class="btn" data-start="1">Bắt đầu tính giờ (60 phút)</button>'}<span class="prog">Đã làm ${n}/100 câu</span><span class="grow"></span>${canPrint?'<button class="btn" data-print="1">In đề</button>':""}<button class="btn pri" data-submit="1">Nộp bài</button>`;
+}
+function submit(auto){const id=S.cur,t=T(id);t.done=true;t.score=grade(id).got;save();clearInterval(tick);render();window.scrollTo({top:0});if(auto)flash("Hết giờ. Bài đã được nộp tự động.")}
+let confirmArm=0;
+function flash(m){let f=$("#flash");if(!f){f=document.createElement("div");f.id="flash";f.style.cssText="position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:.9rem;z-index:30;max-width:90vw";document.body.appendChild(f)}f.textContent=m;f.hidden=false;clearTimeout(f._t);f._t=setTimeout(()=>f.hidden=true,4000)}
+
+document.addEventListener("click",async e=>{
+  const b=e.target.closest("button");if(!b)return;
+  const id=S.cur,t=T(id);
+  if(b.dataset.new){const L=+b.dataset.new;S.gen.push(L);const E=GEN.make(4+S.gen.length,L,USED);GENS.push(E);S.cur=E.id;save();if(TTS)TTS.cancel();render();startTick();window.scrollTo({top:0});flash(`Đã tạo Đề ${E.num} (mức ${E.lv}). Không có câu nào trùng với các đề trước.`);return}
+  if(b.dataset.lv){S.cur=b.dataset.lv;save();if(TTS)TTS.cancel();render();startTick();return}
+  if(b.dataset.play){const it=B(id)[0].items.find(x=>x.id===b.dataset.play);if(!t.done){const pl=(t.plays[it.id]||0);if(pl>=2)return;t.plays[it.id]=pl+1;save();renderBarAndPlays(it.id)}if(!TTS){flash("Trình duyệt này không có giọng đọc. Hãy mở bằng Chrome hoặc Edge.");return}playLines(it.audio);return}
+  if(b.classList.contains("opt")&&!t.done){const q=b.dataset.q;t.a[q]=+b.dataset.v;save();$$(".opt",b.parentNode).forEach(o=>o.classList.remove("sel"));b.classList.add("sel");renderBar();return}
+  if(b.dataset.chip&&!t.done){const q=b.dataset.chip;const line=$(`[data-line="${q}"]`),pool=$(`[data-pool="${q}"]`);
+    if(b.dataset.in){delete b.dataset.in;pool.appendChild(b)}else{b.dataset.in="1";line.appendChild(b)}
+    t.a[q]=$$(".chip",line).map(c=>c.textContent).join(" ");if(!t.a[q])delete t.a[q];save();renderBar();return}
+  if(b.dataset.submit){const left=100-answered(id);if(left>0&&Date.now()-confirmArm>5000){confirmArm=Date.now();flash(`Còn ${left} câu chưa làm. Bấm Nộp bài lần nữa để nộp.`);return}submit(false);return}
+  if(b.dataset.reset){if(Date.now()-confirmArm>5000){confirmArm=Date.now();flash("Bấm lần nữa để xóa bài làm và làm lại từ đầu.");return}confirmArm=0;S.t[id]={a:{},plays:{},done:false,start:null,score:null,name:t.name,cls:t.cls};save();render();return}
+  if(b.dataset.start){t.start=Date.now();save();renderBar();startTick();return}
+  if(b.dataset.print){window.print();return}
+});
+function renderBarAndPlays(qid){const t=T(S.cur);const btn=$(`[data-play="${qid}"]`);const pl=t.plays[qid]||0;const sp=btn.parentNode.querySelector(".plays");if(sp)sp.textContent=`Còn ${Math.max(0,2-pl)} lượt nghe`;if(pl>=2)btn.disabled=true}
+document.addEventListener("change",e=>{const el=e.target;const t=T(S.cur);if(el.tagName==="SELECT"&&el.dataset.q&&!t.done){t.a[el.dataset.q]=el.value;if(!el.value)delete t.a[el.dataset.q];save();renderBar()}});
+document.addEventListener("input",e=>{const el=e.target;const t=T(S.cur);
+  if(el.dataset.who){t[el.dataset.who]=el.value;save();return}
+  if(el.classList.contains("txt")&&!t.done){t.a[el.dataset.q]=el.value;if(!el.value.trim())delete t.a[el.dataset.q];save();renderBar()}});
+function startTick(){clearInterval(tick);const t=T(S.cur);if(t.start&&!t.done)tick=setInterval(renderBar,1000)}
+if(TTS){loadV();TTS.onvoiceschanged=loadV}
+render();startTick();
+})();
+</script>
+
+</body>
+</html>
